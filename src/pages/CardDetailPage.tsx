@@ -44,7 +44,8 @@ export default function CardDetailPage() {
   const [showOffer, setShowOffer] = useState(false)
   const [offerValue, setOfferValue] = useState('')
   const [offerAdded, setOfferAdded] = useState(false)
-  const [_magnifier, _setMagnifier] = useState({ active: false, x: 0, y: 0, bgX: 0, bgY: 0 })
+  const [magnifier, setMagnifier] = useState({ active: false, x: 0, y: 0, bgX: 0, bgY: 0 })
+  const imgRef = useRef<HTMLDivElement>(null)
   const [expanded, setExpanded] = useState(false)
   const [modalMagnifier, setModalMagnifier] = useState({ active: false, x: 0, y: 0, bgX: 0, bgY: 0 })
   const modalImgRef = useRef<HTMLDivElement>(null)
@@ -428,7 +429,7 @@ export default function CardDetailPage() {
                 position: 'relative',
                 backgroundColor: '#fff',
                 borderRadius: 20,
-                padding: '28px 28px 24px',
+                padding: '16px 20px 16px',
                 boxShadow: '0 24px 80px rgba(0,0,0,0.45)',
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20,
               }}
@@ -484,7 +485,7 @@ export default function CardDetailPage() {
                   ref={modalImgRef}
                   style={{
                     position: 'relative',
-                    height: 'min(72vh, 812px)',
+                    height: 'calc(100vh - 140px)',
                     aspectRatio: '2.5/3.5',
                     overflow: 'hidden',
                     borderRadius: 14,
