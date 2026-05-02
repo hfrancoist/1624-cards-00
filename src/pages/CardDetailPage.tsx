@@ -45,7 +45,6 @@ export default function CardDetailPage() {
   const [offerValue, setOfferValue] = useState('')
   const [offerAdded, setOfferAdded] = useState(false)
   const [_magnifier, _setMagnifier] = useState({ active: false, x: 0, y: 0, bgX: 0, bgY: 0 })
-  const _imgRef = useRef<HTMLDivElement>(null)
   const [expanded, setExpanded] = useState(false)
   const [modalMagnifier, setModalMagnifier] = useState({ active: false, x: 0, y: 0, bgX: 0, bgY: 0 })
   const modalImgRef = useRef<HTMLDivElement>(null)
