@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* ── Brand ───────────────────────────────────── */
+    --brand-blue:        #0B42A7;
+    --brand-blue-dark:   #072C6F;
+    --brand-blue-deeper: #041638;
+    --brand-blue-light:  #2F74F1;
+    --brand-blue-lighter:#CBDCFC;
+
+    --brand-gold:        #F5B11C;
+    --brand-gold-dark:   #9D6E07;
+    --brand-gold-deeper: #573D04;
+    --brand-gold-light:  #F8CB68;
+    --brand-gold-lighter:#FDF2D9;
+
+    /* ── Neutral scale (Zinc) ────────────────────── */
+    --neutral-900: #18181B;
+    --neutral-800: #27272A;
+    --neutral-700: #3F3F46;
+    --neutral-600: #52525B;
+    --neutral-500: #71717A;
+    --neutral-400: #A1A1AA;
+    --neutral-300: #D4D4D8;
+    --neutral-200: #E4E4E7;
+    --neutral-100: #F4F4F5;
+    --neutral-50:  #FAFAFA;
+
+    /* ── Semantic ────────────────────────────────── */
+    --color-bg:          var(--neutral-50);
+    --color-surface:     #FFFFFF;
+    --color-border:      var(--neutral-200);
+    --color-border-dark: var(--neutral-300);
+    --color-text:        var(--neutral-900);
+    --color-text-muted:  var(--neutral-500);
+    --color-text-faint:  var(--neutral-400);
+
+    /* ── Typography ──────────────────────────────── */
+    --font-sans:    'PolySans', 'DM Sans', system-ui, sans-serif;
+    --font-display: 'PolySans', 'DM Sans', system-ui, sans-serif;
+    --font-mono:    'DM Mono', monospace;
+
+    /* ── Radii ───────────────────────────────────── */
+    --radius-sm:   4px;
+    --radius-md:   8px;
+    --radius-lg:   12px;
+    --radius-xl:   16px;
+    --radius-2xl:  24px;
+    --radius-full: 9999px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body { min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  button { font-family: inherit; }
+}

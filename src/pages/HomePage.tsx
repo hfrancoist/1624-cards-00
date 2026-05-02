@@ -1,0 +1,220 @@
+import { Link } from 'react-router-dom'
+
+const imgPokeball = "/images/1624_home_pokeball.webp"
+const imgOnePieceFlag = "/images/1624_home_onepiece.webp"
+
+// Inline SVG icons (no external dependency)
+const IconScan = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+    <line x1="7" y1="12" x2="17" y2="12"/>
+  </svg>
+)
+const IconCHF = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="6" width="20" height="12" rx="2"/>
+    <path d="M10 9v6m-1.5-3h3"/><path d="M14 9h1.5a1.5 1.5 0 0 1 0 3H14v3"/>
+  </svg>
+)
+const IconPackage = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand-blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+    <polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/>
+  </svg>
+)
+
+export default function HomePage() {
+  return (
+    <div>
+      {/* Hero */}
+      <section style={{
+        backgroundImage: 'url(/images/1624_home_header03.webp)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: '#fff',
+        padding: '96px 0 80px',
+        position: 'relative',
+      }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', position: 'relative' }}>
+          <p style={{
+            fontSize: 12,
+            fontWeight: 600,
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--neutral-900)',
+            marginBottom: 20,
+          }}>
+            Swiss TCG Singles · Zürich
+          </p>
+          <h1 style={{
+            fontSize: 'clamp(48px, 7vw, 88px)',
+            fontWeight: 800,
+            lineHeight: 0.95,
+            letterSpacing: '-0.02em',
+            marginBottom: 28,
+            maxWidth: 700,
+            color: 'var(--neutral-900)',
+          }}>
+            Every card<br />
+            <span style={{ color: 'var(--brand-gold)' }}>scan&#8209;verified.</span>
+          </h1>
+          <p style={{
+            fontSize: 17,
+            color: 'var(--neutral-900)',
+            lineHeight: 1.6,
+            maxWidth: 480,
+            marginBottom: 40,
+          }}>
+            Pokémon &amp; One Piece singles. The scan you see is the exact card that ships — CHF pricing, Swiss Post.
+          </p>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <Link to="/catalog" style={{
+              padding: '12px 28px',
+              backgroundColor: 'var(--brand-blue)',
+              color: '#fff',
+              borderRadius: 'var(--radius-full)',
+              fontSize: 15,
+              fontWeight: 600,
+              letterSpacing: '0.01em',
+              transition: 'background 0.15s',
+            }}>
+              Browse all cards
+            </Link>
+            <Link to="/new" style={{
+              padding: '12px 28px',
+              backgroundColor: 'transparent',
+              color: 'var(--neutral-900)',
+              borderRadius: 'var(--radius-full)',
+              fontSize: 15,
+              fontWeight: 500,
+              border: '1px solid var(--neutral-700)',
+              transition: 'all 0.15s',
+            }}>
+              New arrivals
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Game selector */}
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '64px 24px' }}>
+        <p style={{
+          fontSize: 12, fontWeight: 600,
+          letterSpacing: '0.12em', textTransform: 'uppercase',
+          color: 'var(--color-text-faint)',
+          marginBottom: 20,
+        }}>
+          Shop by game
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
+
+          {/* Pokémon */}
+          <Link to="/catalog?game=pokemon" style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 24,
+            backgroundColor: '#ffffff',
+            border: '1px solid var(--neutral-200)',
+            borderRadius: 'var(--radius-2xl)',
+            padding: '40px 36px',
+            overflow: 'hidden',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+            flexWrap: 'wrap',
+          }}>
+            <div style={{ flex: '1 1 200px', minWidth: 0 }}>
+              <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--neutral-400)', marginBottom: 10 }}>The world of</p>
+              <h3 style={{ fontSize: 'clamp(36px, 4vw, 52px)', fontWeight: 800, color: 'var(--neutral-900)', lineHeight: 1, letterSpacing: '-0.02em', marginBottom: 14 }}>
+                Pokémon<br />TCG
+              </h3>
+              <p style={{ fontSize: 14, color: 'var(--neutral-500)', marginBottom: 28, lineHeight: 1.5 }}>
+                Singles from Base Set to Scarlet &amp; Violet. Every card photographed.
+              </p>
+              <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--brand-blue)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                Browse Pokémon
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 3l6 4-6 4"/></svg>
+              </span>
+            </div>
+            <div style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img
+                src={imgPokeball}
+                alt="Pokéball"
+                style={{ width: 'min(220px, 40vw)', height: 'min(220px, 40vw)', objectFit: 'contain', display: 'block' }}
+              />
+            </div>
+          </Link>
+
+          {/* One Piece */}
+          <Link to="/catalog?game=one_piece" style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 24,
+            backgroundColor: '#ffffff',
+            border: '1px solid var(--neutral-200)',
+            borderRadius: 'var(--radius-2xl)',
+            padding: '40px 36px',
+            overflow: 'hidden',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+            flexWrap: 'wrap',
+          }}>
+            <div style={{ flex: '1 1 200px', minWidth: 0 }}>
+              <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--neutral-400)', marginBottom: 10 }}>The world of</p>
+              <h3 style={{ fontSize: 'clamp(36px, 4vw, 52px)', fontWeight: 800, color: 'var(--neutral-900)', lineHeight: 1, letterSpacing: '-0.02em', marginBottom: 14 }}>
+                One Piece<br />TCG
+              </h3>
+              <p style={{ fontSize: 14, color: 'var(--neutral-500)', marginBottom: 28, lineHeight: 1.5 }}>
+                Leaders, characters, events from OP01 onwards. Fast-growing meta.
+              </p>
+              <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--brand-blue)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                Browse One Piece
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 3l6 4-6 4"/></svg>
+              </span>
+            </div>
+            <div style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img
+                src={imgOnePieceFlag}
+                alt="One Piece jolly roger flag"
+                style={{ width: 'min(220px, 40vw)', height: 'min(220px, 40vw)', objectFit: 'contain', display: 'block' }}
+              />
+            </div>
+          </Link>
+
+        </div>
+      </section>
+
+      {/* Trust strip */}
+      <section style={{
+        borderTop: '1px solid var(--color-border)',
+        borderBottom: '1px solid var(--color-border)',
+        backgroundColor: 'var(--color-surface)',
+      }}>
+        <div style={{
+          maxWidth: 1200,
+          margin: '0 auto',
+          padding: '32px 24px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gap: 24,
+        }}>
+          {[
+            { label: 'Scan-verified', sub: 'Every card photographed front & back', icon: <IconScan /> },
+            { label: 'CHF pricing', sub: 'All prices incl. Swiss VAT (8.1%)', icon: <IconCHF /> },
+            { label: 'Swiss Post', sub: 'A-Post shipping, fully tracked', icon: <IconPackage /> },
+          ].map(item => (
+            <div key={item.label}>
+              <div style={{ marginBottom: 10 }}>{item.icon}</div>
+              <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text)', marginBottom: 3 }}>{item.label}</p>
+              <p style={{ fontSize: 13, color: 'var(--color-text-muted)', lineHeight: 1.5 }}>{item.sub}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  )
+}
