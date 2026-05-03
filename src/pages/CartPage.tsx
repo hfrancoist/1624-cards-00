@@ -10,7 +10,7 @@ export default function CartPage() {
         <p style={{ fontSize: 48, marginBottom: 16 }}>🃏</p>
         <h1 style={{ fontSize: 22, fontWeight: 500, marginBottom: 8 }}>Your cart is empty</h1>
         <p style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 28 }}>Find a card you love and add it here.</p>
-        <Link to="/catalog" style={{ padding: '11px 24px', backgroundColor: 'var(--brand-blue)', color: '#fff', borderRadius: 'var(--radius-md)', fontSize: 14, fontWeight: 500 }}>
+        <Link to="/catalog?game=pokemon&category=singles" style={{ padding: '11px 24px', backgroundColor: 'var(--brand-blue)', color: '#fff', borderRadius: 'var(--radius-md)', fontSize: 14, fontWeight: 500 }}>
           Browse cards
         </Link>
       </div>
