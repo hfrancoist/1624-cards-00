@@ -8,6 +8,7 @@ import CatalogPage from './pages/CatalogPage'
 import CardDetailPage from './pages/CardDetailPage'
 import CartPage from './pages/CartPage'
 import NewArrivalsPage from './pages/NewArrivalsPage'
+import GameSelectPage from './pages/GameSelectPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 function ScrollToTop() {
@@ -26,6 +27,7 @@ export default function App() {
           <main style={{ flex: 1 }}>
             <Routes>
               <Route path="/"           element={<HomePage />} />
+              <Route path="/select"     element={<GameSelectPage />} />
               <Route path="/catalog"    element={<CatalogPage />} />
               <Route path="/card/:id"   element={<CardDetailPage />} />
               <Route path="/cart"       element={<CartPage />} />
