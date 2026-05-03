@@ -5,10 +5,10 @@ import { CONDITION_LABELS, GAME_LABELS } from '../types'
 import { supabase } from '../lib/supabase'
 
 const COND_BG: Record<Condition, string> = {
-  NM: 'var(--brand-gold-lighter)', LP: 'rgba(245,177,28,0.12)', MP: '#FAECE7', HP: '#FCEBEB', DMG: '#F1EFE8'
+  NM: '#E8F5E9', LP: '#E3F2FD', MP: '#FFF8E1', HP: '#FBE9E7', DMG: '#EFEBE9'
 }
 const COND_COLOR: Record<Condition, string> = {
-  NM: 'var(--brand-blue-dark)', LP: 'var(--brand-gold-dark)', MP: '#B45309', HP: '#DC2626', DMG: 'var(--neutral-500)'
+  NM: '#2E7D32', LP: '#1565C0', MP: '#F57F17', HP: '#BF360C', DMG: '#4E342E'
 }
 
 type Listing = {
@@ -116,18 +116,38 @@ export default function CatalogPage() {
         {/* Sidebar filters */}
         <aside style={{ width: 200, flexShrink: 0 }}>
           <div style={{ marginBottom: 24 }}>
-            <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Game</p>
-            {([null, 'pokemon', 'one_piece'] as (Game | null)[]).map(g => (
-              <button key={String(g)} onClick={() => setGame(g)} style={{
+            <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Category</p>
+            {([
+              { label: 'Singles', value: null },
+              { label: 'Sealed Products', value: 'sealed' },
+            ] as { label: string; value: string | null }[]).map(({ label, value }) => (
+              <button key={String(value)} onClick={() => setGame(value as Game | null)} style={{
                 display: 'block', width: '100%', textAlign: 'left',
                 padding: '7px 10px', borderRadius: 'var(--radius-md)',
                 fontSize: 13, border: 'none', cursor: 'pointer',
-                backgroundColor: activeGame === g ? 'var(--color-brand-light)' : 'transparent',
-                color: activeGame === g ? 'var(--color-brand)' : 'var(--color-text-muted)',
+                backgroundColor: activeGame === value ? 'var(--brand-blue-lighter)' : 'transparent',
+                color: activeGame === value ? 'var(--brand-blue)' : 'var(--color-text-muted)',
+                fontWeight: activeGame === value ? 500 : 400,
+                marginBottom: 2,
+              }}>
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ marginBottom: 24 }}>
+            <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Game</p>
+            {(['pokemon', 'one_piece'] as Game[]).map(g => (
+              <button key={g} onClick={() => setGame(g)} style={{
+                display: 'block', width: '100%', textAlign: 'left',
+                padding: '7px 10px', borderRadius: 'var(--radius-md)',
+                fontSize: 13, border: 'none', cursor: 'pointer',
+                backgroundColor: activeGame === g ? 'var(--brand-blue-lighter)' : 'transparent',
+                color: activeGame === g ? 'var(--brand-blue)' : 'var(--color-text-muted)',
                 fontWeight: activeGame === g ? 500 : 400,
                 marginBottom: 2,
               }}>
-                {g === null ? 'All games' : GAME_LABELS[g]}
+                {GAME_LABELS[g]}
               </button>
             ))}
           </div>

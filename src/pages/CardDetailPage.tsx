@@ -30,8 +30,12 @@ type Listing = {
   }
 }
 
-const COND_BG: Record<Condition, string> = { NM: 'var(--brand-gold-lighter)', LP: 'rgba(245,177,28,0.12)', MP: '#FAECE7', HP: '#FCEBEB', DMG: '#F1EFE8' }
-const COND_COLOR: Record<Condition, string> = { NM: 'var(--brand-blue-dark)', LP: 'var(--brand-gold-dark)', MP: '#712B13', HP: '#791F1F', DMG: '#444441' }
+const COND_BG: Record<Condition, string> = {
+  NM: '#E8F5E9', LP: '#E3F2FD', MP: '#FFF8E1', HP: '#FBE9E7', DMG: '#EFEBE9'
+}
+const COND_COLOR: Record<Condition, string> = {
+  NM: '#2E7D32', LP: '#1565C0', MP: '#F57F17', HP: '#BF360C', DMG: '#4E342E'
+}
 
 export default function CardDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -387,7 +391,7 @@ export default function CardDetailPage() {
           })()}
 
           <p style={{ fontSize: 12, color: 'var(--color-text-faint)', marginTop: 12 }}>
-            The scan shown is the exact physical card you will receive.
+            The scan shown is the exact physical card you will receive. All cards are scanned on a scanner glass at 400 DPI.
           </p>
         </div>
       </div>

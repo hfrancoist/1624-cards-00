@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
-const imgPokeball = "/images/1624_home_pokeball.webp"
-const imgOnePieceFlag = "/images/1624_home_onepiece.webp"
+const imgPokeball = "/images/pokemon_home_logo.webp"
+const imgOnePieceFlag = "/images/onepiece_home_logo.webp"
 
 // Inline SVG icons (no external dependency)
 const IconScan = () => (
