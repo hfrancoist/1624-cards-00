@@ -106,10 +106,10 @@ export default function CatalogPage() {
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
         <h1 style={{ fontSize: 28, fontWeight: 500, marginBottom: 4 }}>
-          {activeGame ? GAME_LABELS[activeGame] : 'All cards'}
+          {activeGame ? `${GAME_LABELS[activeGame]} — ${activeCategory === 'sealed' ? 'Sealed Products' : 'Singles'}` : 'All cards'}
         </h1>
         <p style={{ fontSize: 14, color: 'var(--color-text-muted)' }}>
-          {loading ? 'Loading…' : `${filtered.length} listing${filtered.length !== 1 ? 's' : ''} available`}
+          {loading ? 'Loading…' : activeGame ? `${filtered.length} listing${filtered.length !== 1 ? 's' : ''} available` : 'Select a game to browse'}
         </p>
       </div>
 
@@ -213,7 +213,16 @@ export default function CatalogPage() {
             </div>
           )}
 
-          {loading ? (
+          {!activeGame ? (
+            <div style={{ textAlign: 'center', padding: '60px 0' }}>
+              <p style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-text)', marginBottom: 8 }}>Select a game to browse</p>
+              <p style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 24 }}>Choose Pokémon TCG or One Piece TCG from the navigation to get started.</p>
+              <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+                <a href="/catalog?game=pokemon&category=singles" style={{ padding: '10px 20px', backgroundColor: 'var(--brand-blue)', color: '#fff', borderRadius: 'var(--radius-full)', fontSize: 14, fontWeight: 500 }}>Pokémon TCG</a>
+                <a href="/catalog?game=one_piece&category=singles" style={{ padding: '10px 20px', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 'var(--radius-full)', fontSize: 14, fontWeight: 500 }}>One Piece TCG</a>
+              </div>
+            </div>
+          ) : loading ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 12 }}>
               {Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
