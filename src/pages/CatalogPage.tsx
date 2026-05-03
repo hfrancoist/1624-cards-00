@@ -87,12 +87,6 @@ export default function CatalogPage() {
     setSearchParams(params)
   }
 
-  function setGame(game: Game | null) {
-    const params: Record<string, string> = { category: activeCategory }
-    if (game) params.game = game
-    setSearchParams(params)
-  }
-
   function setSet(set_code: string | null) {
     const params: Record<string, string> = { category: activeCategory }
     if (activeGame) params.game = activeGame
