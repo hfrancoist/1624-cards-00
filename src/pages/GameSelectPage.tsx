@@ -7,7 +7,7 @@ export default function GameSelectPage() {
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 24px' }}>
 
-      <div style={{ marginBottom: 40 }}>
+      <div style={{ marginBottom: 28 }}>
         <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8, color: 'var(--neutral-900)' }}>
           Choose a game
         </h1>
