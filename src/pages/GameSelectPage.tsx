@@ -5,7 +5,7 @@ const imgOnePieceFlag = "/images/onepiece_home_logo.webp"
 
 export default function GameSelectPage() {
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '64px 24px' }}>
+    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 24px' }}>
 
       <div style={{ marginBottom: 40 }}>
         <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8, color: 'var(--neutral-900)' }}>
