@@ -41,6 +41,7 @@ export default function CatalogPage() {
 
   const activeGame = searchParams.get('game') as Game | null
   const activeSet = searchParams.get('set') ?? null
+  const activeCategory = searchParams.get('category') ?? 'singles'
 
   // Derive unique sets from loaded listings for the active game, sorted alphabetically
   const availableSets: [string, string][] = Array.from(
@@ -71,7 +72,7 @@ export default function CatalogPage() {
     }
 
     fetchListings()
-  }, [])  // fetch once — game/set filtering is done client-side
+  }, [])
 
   const filtered = listings.filter(l => {
     if (activeGame && l.card.game !== activeGame) return false
@@ -80,13 +81,20 @@ export default function CatalogPage() {
     return true
   })
 
+  function setCategory(category: string) {
+    const params: Record<string, string> = { category }
+    if (activeGame) params.game = activeGame
+    setSearchParams(params)
+  }
+
   function setGame(game: Game | null) {
-    if (game) setSearchParams({ game })
-    else setSearchParams({})
+    const params: Record<string, string> = { category: activeCategory }
+    if (game) params.game = game
+    setSearchParams(params)
   }
 
   function setSet(set_code: string | null) {
-    const params: Record<string, string> = {}
+    const params: Record<string, string> = { category: activeCategory }
     if (activeGame) params.game = activeGame
     if (set_code) params.set = set_code
     setSearchParams(params)
@@ -112,16 +120,16 @@ export default function CatalogPage() {
           <div style={{ marginBottom: 24 }}>
             <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Category</p>
             {([
-              { label: 'Singles', value: null },
+              { label: 'Singles', value: 'singles' },
               { label: 'Sealed Products', value: 'sealed' },
-            ] as { label: string; value: string | null }[]).map(({ label, value }) => (
-              <button key={String(value)} onClick={() => setGame(value as Game | null)} style={{
+            ]).map(({ label, value }) => (
+              <button key={value} onClick={() => setCategory(value)} style={{
                 display: 'block', width: '100%', textAlign: 'left',
                 padding: '7px 10px', borderRadius: 'var(--radius-md)',
                 fontSize: 13, border: 'none', cursor: 'pointer',
-                backgroundColor: activeGame === value ? 'var(--brand-blue-lighter)' : 'transparent',
-                color: activeGame === value ? 'var(--brand-blue)' : 'var(--color-text-muted)',
-                fontWeight: activeGame === value ? 500 : 400,
+                backgroundColor: activeCategory === value ? 'var(--brand-blue-lighter)' : 'transparent',
+                color: activeCategory === value ? 'var(--brand-blue)' : 'var(--color-text-muted)',
+                fontWeight: activeCategory === value ? 500 : 400,
                 marginBottom: 2,
               }}>
                 {label}
