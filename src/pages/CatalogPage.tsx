@@ -135,19 +135,9 @@ export default function CatalogPage() {
             ))}
           </div>
 
-          <div>
-            <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Condition</p>
-            {(Object.keys(CONDITION_LABELS) as Condition[]).map(c => (
-              <div key={c} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 4px', fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 2 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: COND_COLOR[c], flexShrink: 0 }} />
-                {CONDITION_LABELS[c]}
-              </div>
-            ))}
-          </div>
-
           {/* Expansion filter — shown when a specific game is selected */}
           {activeGame && availableSets.length > 0 && (
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginBottom: 24 }}>
               <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Expansion</p>
               <button
                 onClick={() => setSet(null)}
@@ -183,6 +173,16 @@ export default function CatalogPage() {
               ))}
             </div>
           )}
+
+          <div>
+            <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Condition</p>
+            {(Object.keys(CONDITION_LABELS) as Condition[]).map(c => (
+              <div key={c} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 4px', fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 2 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: COND_COLOR[c], flexShrink: 0 }} />
+                {CONDITION_LABELS[c]}
+              </div>
+            ))}
+          </div>
         </aside>
 
         {/* Main content */}
