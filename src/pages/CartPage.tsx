@@ -7,7 +7,7 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div style={{ maxWidth: 640, margin: '80px auto', padding: '0 24px', textAlign: 'center' }}>
-        <p style={{ fontSize: 48, marginBottom: 16 }}>🃏</p>
+        <img src="/images/1624_empty-cards.webp" alt="" style={{ width: 200, height: 'auto', display: 'block', margin: '0 auto 16px' }} />
         <h1 style={{ fontSize: 22, fontWeight: 500, marginBottom: 8 }}>Your cart is empty</h1>
         <p style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 28 }}>Find a card you love and add it here.</p>
         <Link to="/select" style={{ padding: '11px 24px', backgroundColor: 'var(--brand-blue)', color: '#fff', borderRadius: 'var(--radius-md)', fontSize: 14, fontWeight: 500 }}>

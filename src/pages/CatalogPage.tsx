@@ -229,8 +229,16 @@ export default function CatalogPage() {
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--color-text-muted)' }}>
-              <p style={{ fontSize: 15 }}>No cards found.</p>
+            <div style={{ textAlign: 'center', padding: '45px 0' }}>
+              <img
+                src={activeGame === 'one_piece' ? '/images/1624_empty-op.webp' : '/images/1624_empty-pokemon.webp'}
+                alt=""
+                style={{ width: 180, height: 'auto', display: 'block', margin: '0 auto 18px' }}
+              />
+              <p style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-text)', marginBottom: 6 }}>No cards found</p>
+              <p style={{ fontSize: 13, color: 'var(--color-text-muted)' }}>
+                {search ? `No results for "${search}" — try a different search.` : 'No listings available in this category yet.'}
+              </p>
             </div>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 12 }}>
