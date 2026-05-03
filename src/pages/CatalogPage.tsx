@@ -135,23 +135,6 @@ export default function CatalogPage() {
             ))}
           </div>
 
-          <div style={{ marginBottom: 24 }}>
-            <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Game</p>
-            {(['pokemon', 'one_piece'] as Game[]).map(g => (
-              <button key={g} onClick={() => setGame(g)} style={{
-                display: 'block', width: '100%', textAlign: 'left',
-                padding: '7px 10px', borderRadius: 'var(--radius-md)',
-                fontSize: 13, border: 'none', cursor: 'pointer',
-                backgroundColor: activeGame === g ? 'var(--brand-blue-lighter)' : 'transparent',
-                color: activeGame === g ? 'var(--brand-blue)' : 'var(--color-text-muted)',
-                fontWeight: activeGame === g ? 500 : 400,
-                marginBottom: 2,
-              }}>
-                {GAME_LABELS[g]}
-              </button>
-            ))}
-          </div>
-
           <div>
             <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Condition</p>
             {(Object.keys(CONDITION_LABELS) as Condition[]).map(c => (
