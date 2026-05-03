@@ -56,31 +56,25 @@ export default function CatalogPage() {
       setLoading(true)
       setError(null)
 
-      let query = supabase
+      const { data, error } = await supabase
         .from('listings')
         .select('*, card:cards(*)')
         .eq('is_active', true)
         .order('created_at', { ascending: false })
 
-      if (activeGame) {
-        query = query.eq('card.game', activeGame)
-      }
-
-      const { data, error } = await query
-
       if (error) {
         setError(error.message)
       } else {
-        // Filter out listings where card join returned null (mismatched game filter)
         setListings((data ?? []).filter((l: any) => l.card !== null) as Listing[])
       }
       setLoading(false)
     }
 
     fetchListings()
-  }, [activeGame])
+  }, [])  // fetch once — game/set filtering is done client-side
 
   const filtered = listings.filter(l => {
+    if (activeGame && l.card.game !== activeGame) return false
     if (search && !l.card.name_en.toLowerCase().includes(search.toLowerCase())) return false
     if (activeSet && l.card.set_code !== activeSet) return false
     return true
