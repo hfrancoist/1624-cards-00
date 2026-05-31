@@ -372,7 +372,7 @@ export default function CardDetailPage() {
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(300px, 475px) minmax(300px, 500px)', gap: isMobile ? 24 : 48, alignItems: 'start', opacity: seriesVisible ? 1 : 0, transform: seriesVisible ? 'none' : 'translateY(8px)', transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1), transform 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
 
         {/* Scan viewer */}
-        <div>
+        <div style={{ minWidth: 0 }}>
           {/* Thumbnail strip — all devices */}
           {seriesListings.length > 1 && (
             <div
@@ -382,9 +382,13 @@ export default function CardDetailPage() {
                 gap: 8,
                 overflowX: 'auto',
                 marginBottom: 12,
-                paddingBottom: 2,
+                paddingBottom: 4,
+                paddingLeft: 2,
+                paddingRight: 2,
                 scrollbarWidth: 'none',
                 WebkitOverflowScrolling: 'touch',
+                scrollSnapType: 'x mandatory',
+                width: '100%',
               } as React.CSSProperties}
             >
               {seriesListings.map(s => (
@@ -395,8 +399,9 @@ export default function CardDetailPage() {
                   onClick={e => { e.preventDefault(); navigateToSeries(s.id) }}
                   style={{
                     flexShrink: 0,
-                    width: isMobile ? 56 : 64,
-                    height: isMobile ? 56 : 64,
+                    scrollSnapAlign: 'start',
+                    width: 64,
+                    height: 64,
                     borderRadius: 8,
                     overflow: 'hidden',
                     border: s.id === listing.id
