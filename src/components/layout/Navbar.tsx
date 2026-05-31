@@ -31,7 +31,7 @@ export default function Navbar() {
   const [bouncing, setBouncing] = useState(false)
   const lastScrollY = useRef(0)
   const prevCount = useRef(count)
-  const full = pathname + search
+
 
   useEffect(() => {
     if (count > prevCount.current) {
