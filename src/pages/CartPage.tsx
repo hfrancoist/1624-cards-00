@@ -1,12 +1,39 @@
+import { useState, useEffect } from 'react'
+import { setPageMeta } from '../lib/pageMeta'
 import { Link } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
+import { redirectToCheckout } from '../lib/checkout'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 export default function CartPage() {
-  const { items, totalCHF, removeItem, setQuantity } = useCart()
+  const { items, totalCHF, removeItem, setQuantity, refreshItems } = useCart()
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { refreshItems() }, [])
+  const [checkoutError, setCheckoutError] = useState<string | null>(null)
+  const [postalCode, setPostalCode] = useState('')
+  useEffect(() => { setPageMeta('Your Cart') }, [])
+  const isMobile = useIsMobile()
+
+  const isZurich = /^80\d{2}$/.test(postalCode.trim())
+  const shippingCHF = totalCHF >= 100 || isZurich ? 0 : 4.50
+  const grandTotal = totalCHF + shippingCHF
+
+  async function handleCheckout() {
+    setCheckoutLoading(true)
+    setCheckoutError(null)
+    try {
+      await redirectToCheckout(items, postalCode, shippingCHF)
+    } catch (err) {
+      setCheckoutError(err instanceof Error ? err.message : 'Something went wrong')
+      setCheckoutLoading(false)
+    }
+  }
 
   if (items.length === 0) {
     return (
-      <div style={{ maxWidth: 640, margin: '80px auto', padding: '0 24px', textAlign: 'center' }}>
+      <div style={{ maxWidth: 640, margin: '80px auto', padding: '0 13px', textAlign: 'center' }}>
         <img src="/images/1624_empty-cards.webp" alt="" style={{ width: 200, height: 'auto', display: 'block', margin: '0 auto 16px' }} />
         <h1 style={{ fontSize: 22, fontWeight: 500, marginBottom: 8 }}>Your cart is empty</h1>
         <p style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 28 }}>Find a card you love and add it here.</p>
@@ -17,14 +44,11 @@ export default function CartPage() {
     )
   }
 
-  const shippingCHF = totalCHF >= 100 ? 0 : 4.50
-  const grandTotal = totalCHF + shippingCHF
-
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto', padding: '32px 24px' }}>
+    <div style={{ maxWidth: 900, margin: '0 auto', padding: isMobile ? '24px 9px' : '32px 13px' }}>
       <h1 style={{ fontSize: 24, fontWeight: 500, marginBottom: 28 }}>Your cart</h1>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 24, alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 300px', gap: 16, alignItems: 'start' }}>
 
         {/* Items */}
         <div style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
@@ -42,8 +66,8 @@ export default function CartPage() {
                 flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
                 overflow: 'hidden',
               }}>
-                {(item.listing.scan_preview || item.listing.scan_front)
-                  ? <img src={item.listing.scan_preview ?? item.listing.scan_front} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 6 }} />
+                {item.listing.scan_front
+                  ? <img src={item.listing.scan_front} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 6 }} />
                   : <span style={{ fontSize: 9, color: 'var(--color-text-faint)', textAlign: 'center' }}>{item.listing.card?.card_number}</span>
                 }
               </div>
@@ -78,6 +102,30 @@ export default function CartPage() {
         <div style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
           <p style={{ fontSize: 14, fontWeight: 500, marginBottom: 16 }}>Order summary</p>
 
+          {/* Postal code for shipping estimate */}
+          <div style={{ marginBottom: 14 }}>
+            <label style={{ fontSize: 12, color: 'var(--color-text-faint)', display: 'block', marginBottom: 6 }}>
+              Postal code
+            </label>
+            <input
+              value={postalCode}
+              onChange={e => setPostalCode(e.target.value)}
+              placeholder="e.g. 8050"
+              maxLength={4}
+              style={{
+                width: '100%', padding: '8px 10px',
+                border: '1px solid var(--color-border)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 13, backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text)', outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+            {isZurich && (
+              <p style={{ fontSize: 11, color: '#16A34A', marginTop: 4 }}>Free delivery in Zürich</p>
+            )}
+          </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--color-text-muted)' }}>
               <span>Subtotal</span>
@@ -85,12 +133,14 @@ export default function CartPage() {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--color-text-muted)' }}>
               <span>Shipping</span>
-              <span style={{ color: shippingCHF === 0 ? '#27500A' : 'inherit' }}>
+              <span style={{ color: shippingCHF === 0 ? '#16A34A' : 'inherit' }}>
                 {shippingCHF === 0 ? 'Free' : `CHF ${shippingCHF.toFixed(2)}`}
               </span>
             </div>
             {shippingCHF > 0 && (
-              <p style={{ fontSize: 11, color: 'var(--color-text-faint)' }}>Free shipping on orders over CHF 100</p>
+              <p style={{ fontSize: 11, color: 'var(--color-text-faint)' }}>
+                Free for Zürich (80xx) and orders over CHF 100
+              </p>
             )}
           </div>
 
@@ -101,14 +151,27 @@ export default function CartPage() {
 
           <p style={{ fontSize: 11, color: 'var(--color-text-faint)', marginBottom: 16 }}>Incl. Swiss VAT (8.1%)</p>
 
-          <Link to="/checkout" style={{
-            display: 'block', textAlign: 'center',
-            padding: '12px', backgroundColor: 'var(--brand-blue)', color: '#fff',
-            borderRadius: 'var(--radius-md)', fontSize: 14, fontWeight: 500,
-            marginBottom: 10,
-          }}>
-            Proceed to checkout
-          </Link>
+          {checkoutError && (
+            <p style={{ fontSize: 12, color: '#B91C1C', marginBottom: 10, textAlign: 'center' }}>
+              {checkoutError}
+            </p>
+          )}
+          <button
+            onClick={handleCheckout}
+            disabled={checkoutLoading}
+            className="btn-primary"
+            style={{
+              display: 'block', width: '100%', textAlign: 'center',
+              padding: '12px', backgroundColor: 'var(--brand-blue)', color: '#fff',
+              borderRadius: 'var(--radius-md)', fontSize: 14, fontWeight: 500,
+              marginBottom: 10, border: 'none',
+              cursor: checkoutLoading ? 'wait' : 'pointer',
+              opacity: checkoutLoading ? 0.7 : 1,
+              transition: 'background-color 0.15s, opacity 0.15s',
+            }}
+          >
+            {checkoutLoading ? 'Redirecting…' : 'Proceed to checkout'}
+          </button>
           <Link to="/catalog" style={{ display: 'block', textAlign: 'center', fontSize: 13, color: 'var(--color-text-muted)' }}>
             Continue shopping
           </Link>
