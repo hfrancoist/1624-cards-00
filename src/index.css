@@ -70,6 +70,17 @@
   button { font-family: inherit; }
 }
 
+/* Image shimmer skeleton */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.img-shimmer {
+  background: linear-gradient(90deg, var(--neutral-100) 25%, var(--neutral-200) 50%, var(--neutral-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
 /* Fly-to-cart animation */
 @keyframes fly-to-cart {
   0%   { transform: translate(0, 0) scale(1); opacity: 1; }

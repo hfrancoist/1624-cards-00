@@ -50,13 +50,16 @@ function CardTile({ listing, inCart, canAdd, justAdded, onAddToCart, isNew, isMo
 }) {
   const defaultSrc = listing.scan_front
   const altSrc = listing.scan_back ?? null
+  const [imgLoaded, setImgLoaded] = useState(false)
   const [showBack, setShowBack] = useState(false)
+  const [backSrc, setBackSrc] = useState<string | null>(null)
   const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => () => { if (hoverTimer.current) clearTimeout(hoverTimer.current) }, [])
 
   function handleMouseEnter() {
     if (!altSrc) return
+    if (!backSrc) setBackSrc(altSrc)
     hoverTimer.current = setTimeout(() => setShowBack(true), 300)
   }
 
@@ -86,18 +89,22 @@ function CardTile({ listing, inCart, canAdd, justAdded, onAddToCart, isNew, isMo
         overflow: 'hidden',
         position: 'relative',
       }}>
+        {/* Shimmer shown until image loads */}
+        {!imgLoaded && (
+          <div className="img-shimmer" style={{ position: 'absolute', inset: 0 }} />
+        )}
         {defaultSrc ? (
           <>
-            {/* Front image — always visible */}
             <img
               src={defaultSrc}
               alt={listing.card.name_en}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              loading="lazy"
+              onLoad={() => setImgLoaded(true)}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
             />
-            {/* Back scan — crossfades in on hover */}
-            {altSrc && (
+            {backSrc && (
               <img
-                src={altSrc}
+                src={backSrc}
                 alt={listing.card.name_en}
                 style={{
                   position: 'absolute',
