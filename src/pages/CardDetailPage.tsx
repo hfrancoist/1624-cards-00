@@ -271,7 +271,7 @@ export default function CardDetailPage() {
   if (loading) {
     return (
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 13px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(240px, 380px) 1fr', gap: 48 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(300px, 475px) 1fr', gap: 48 }}>
           <div style={{ aspectRatio: '2.5/3.5', backgroundColor: 'var(--color-bg)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--color-border)' }} />
           <div style={{ paddingTop: 8 }}>
             <div style={{ height: 16, width: 80, backgroundColor: 'var(--color-bg)', borderRadius: 4, marginBottom: 16 }} />
@@ -369,7 +369,7 @@ export default function CardDetailPage() {
         <span style={{ color: 'var(--color-text)' }}>{listing.card.name_en}</span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(240px, 380px) minmax(300px, 500px)', gap: isMobile ? 24 : 48, alignItems: 'start', opacity: seriesVisible ? 1 : 0, transform: seriesVisible ? 'none' : 'translateY(8px)', transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1), transform 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(300px, 475px) minmax(300px, 500px)', gap: isMobile ? 24 : 48, alignItems: 'start', opacity: seriesVisible ? 1 : 0, transform: seriesVisible ? 'none' : 'translateY(8px)', transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1), transform 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
 
         {/* Scan viewer */}
         <div>
@@ -789,7 +789,7 @@ export default function CardDetailPage() {
 
                 {/* Prev arrow */}
                 <button onClick={prevSlide} disabled={modalIdx === 0} style={{
-                  position: 'absolute', left: isMobile ? 12 : 'calc(50% - 300px)', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
+                  position: 'absolute', left: isMobile ? 12 : 'calc(50% - 375px)', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
                   width: 48, height: 48, borderRadius: '50%',
                   backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)',
                   cursor: modalIdx === 0 ? 'default' : 'pointer',
@@ -806,7 +806,7 @@ export default function CardDetailPage() {
                   ref={modalImgRef}
                   style={{
                     position: 'relative',
-                    height: 'min(calc(100vh - 160px), 700px)',
+                    height: 'min(calc(100vh - 160px), 875px)',
                     aspectRatio: '2.5/3.5',
                     borderRadius: 12,
                     overflow: 'hidden',
@@ -862,7 +862,7 @@ export default function CardDetailPage() {
 
                 {/* Next arrow */}
                 <button onClick={nextSlide} disabled={modalIdx === modalSlides.length - 1} style={{
-                  position: 'absolute', right: isMobile ? 12 : 'calc(50% - 300px)', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
+                  position: 'absolute', right: isMobile ? 12 : 'calc(50% - 375px)', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
                   width: 48, height: 48, borderRadius: '50%',
                   backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)',
                   cursor: modalIdx === modalSlides.length - 1 ? 'default' : 'pointer',
