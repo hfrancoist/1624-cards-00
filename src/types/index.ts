@@ -1,7 +1,7 @@
 // Game enum
 export type Game = 'pokemon' | 'one_piece'
 
-// Card condition
+// Card condition (best → worst)
 export type Condition = 'NM' | 'LP' | 'MP' | 'HP' | 'DMG'
 
 // Card rarity
@@ -122,9 +122,9 @@ export const CONDITION_LABELS: Record<Condition, string> = {
 
 export const CONDITION_COLORS: Record<Condition, string> = {
   NM:  '#27500A',   // green
-  LP:  '#633806',   // amber
-  MP:  '#7C3A1A',   // orange
-  HP:  '#791F1F',   // red
+  LP:  '#6A1B9A',   // purple
+  MP:  '#F57F17',   // amber
+  HP:  '#633806',   // orange-amber
   DMG: '#444441',   // gray
 }
 
