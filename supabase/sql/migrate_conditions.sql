@@ -1,35 +1,21 @@
--- Migrate card conditions: (NM, EX, GD, LP, DMG) -> (NM, LP, MP, HP, DMG)
+-- Migrate card conditions: (NM, EX, LP, DMG) -> (NM, LP, MP, HP, DMG)
+-- condition column is a Postgres enum type (condition_type)
 --
 -- Mapping:
 --   NM  -> NM  (unchanged)
 --   EX  -> LP
---   GD  -> MP
 --   LP  -> HP
 --   DMG -> DMG (unchanged)
+-- Note: MP is added as a new enum value (no existing data maps to it)
 
--- Step 1: Migrate listings.condition
--- Order matters: LP->HP first to avoid overwriting EX->LP
-update listings set condition = 'HP'  where condition = 'LP';
-update listings set condition = 'MP'  where condition = 'GD';
-update listings set condition = 'LP'  where condition = 'EX';
+-- Step 1: Add new enum values (can only add, not remove, in Postgres)
+ALTER TYPE condition_type ADD VALUE IF NOT EXISTS 'MP';
+ALTER TYPE condition_type ADD VALUE IF NOT EXISTS 'HP';
 
--- Step 2: Migrate wishlist_entries.condition_min
-update wishlist_entries set condition_min = 'HP'  where condition_min = 'LP';
-update wishlist_entries set condition_min = 'MP'  where condition_min = 'GD';
-update wishlist_entries set condition_min = 'LP'  where condition_min = 'EX';
+-- Step 2: Migrate data (LP -> HP first, then EX -> LP)
+UPDATE listings SET condition = 'HP' WHERE condition = 'LP';
+UPDATE listings SET condition = 'LP' WHERE condition = 'EX';
 
--- Step 3: Drop old check constraints and add new ones
--- (run each alter separately if one table does not have a constraint)
-alter table listings
-  drop constraint if exists listings_condition_check;
-
-alter table listings
-  add constraint listings_condition_check
-  check (condition in ('NM', 'LP', 'MP', 'HP', 'DMG'));
-
-alter table wishlist_entries
-  drop constraint if exists wishlist_entries_condition_check;
-
-alter table wishlist_entries
-  add constraint wishlist_entries_condition_check
-  check (condition_min in ('NM', 'LP', 'MP', 'HP', 'DMG'));
+-- Step 3: Same for wishlist_entries
+UPDATE wishlist_entries SET condition_min = 'HP' WHERE condition_min = 'LP';
+UPDATE wishlist_entries SET condition_min = 'LP' WHERE condition_min = 'EX';
