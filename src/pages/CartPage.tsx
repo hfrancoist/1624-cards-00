@@ -12,12 +12,15 @@ export default function CartPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { refreshItems() }, [])
   const [checkoutError, setCheckoutError] = useState<string | null>(null)
+  const [country, setCountry] = useState('CH')
   const [postalCode, setPostalCode] = useState('')
   useEffect(() => { setPageMeta('Your Cart') }, [])
   const isMobile = useIsMobile()
 
-  const isZurich = /^80\d{2}$/.test(postalCode.trim())
-  const shippingCHF = totalCHF >= 100 || isZurich ? 0 : 4.50
+  const isZurich = country === 'CH' && /^80\d{2}$/.test(postalCode.trim())
+  const shippingCHF = isZurich ? 0
+    : country === 'CH' ? (totalCHF >= 75 ? 0 : 4.50)
+    : 12.00
   const grandTotal = totalCHF + shippingCHF
 
   async function handleCheckout() {
@@ -102,16 +105,36 @@ export default function CartPage() {
         <div style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
           <p style={{ fontSize: 14, fontWeight: 500, marginBottom: 16 }}>Order summary</p>
 
-          {/* Postal code for shipping estimate */}
+          {/* Country + postal code for shipping estimate */}
           <div style={{ marginBottom: 14 }}>
+            <label style={{ fontSize: 12, color: 'var(--color-text-faint)', display: 'block', marginBottom: 6 }}>
+              Country
+            </label>
+            <select
+              value={country}
+              onChange={e => { setCountry(e.target.value); setPostalCode('') }}
+              style={{
+                width: '100%', padding: '8px 10px',
+                border: '1px solid var(--color-border)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 13, backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text)', outline: 'none',
+                boxSizing: 'border-box', marginBottom: 8,
+                cursor: 'pointer',
+              }}
+            >
+              <option value="CH">Switzerland</option>
+              <option value="DE">Germany</option>
+              <option value="IT">Italy</option>
+            </select>
             <label style={{ fontSize: 12, color: 'var(--color-text-faint)', display: 'block', marginBottom: 6 }}>
               Postal code
             </label>
             <input
               value={postalCode}
               onChange={e => setPostalCode(e.target.value)}
-              placeholder="e.g. 8050"
-              maxLength={4}
+              placeholder={country === 'CH' ? 'e.g. 8050' : 'e.g. 10115'}
+              maxLength={country === 'CH' ? 4 : 5}
               style={{
                 width: '100%', padding: '8px 10px',
                 border: '1px solid var(--color-border)',
@@ -137,9 +160,14 @@ export default function CartPage() {
                 {shippingCHF === 0 ? 'Free' : `CHF ${shippingCHF.toFixed(2)}`}
               </span>
             </div>
-            {shippingCHF > 0 && (
+            {shippingCHF > 0 && country === 'CH' && (
               <p style={{ fontSize: 11, color: 'var(--color-text-faint)' }}>
-                Free for Zürich (80xx) and orders over CHF 100
+                Free for Zürich (80xx) and Swiss orders over CHF 75
+              </p>
+            )}
+            {(country === 'DE' || country === 'IT') && (
+              <p style={{ fontSize: 11, color: 'var(--color-text-faint)' }}>
+                Tracked international shipping via Swiss Post
               </p>
             )}
           </div>

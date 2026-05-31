@@ -16,7 +16,7 @@ function Row({ label, value, highlight }: { label: string; value: string; highli
 }
 
 export default function ShippingPage() {
-  useEffect(() => { setPageMeta('Shipping Info', 'Swiss Post A-Post tracked shipping. Free for orders over CHF 100 or within Zürich (80xx postal codes).') }, [])
+  useEffect(() => { setPageMeta('Shipping Info', 'Swiss Post tracked shipping to Switzerland, Germany and Italy. Free for Swiss orders over CHF 75 or within Zürich.') }, [])
 
   const isMobile = useIsMobile()
 
@@ -24,24 +24,38 @@ export default function ShippingPage() {
     <div style={{ maxWidth: 720, margin: '0 auto', padding: isMobile ? '32px 9px' : '48px 13px' }}>
       <h1 style={{ fontSize: isMobile ? 24 : 30, fontWeight: 600, marginBottom: 8 }}>Shipping & returns</h1>
       <p style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 40, lineHeight: 1.7 }}>
-        We ship exclusively within Switzerland via Swiss Post. Every order is carefully packaged to protect your cards.
+        We ship to Switzerland, Germany and Italy via Swiss Post. Every order is carefully packaged to protect your cards.
       </p>
 
       {/* Shipping costs */}
       <section style={{ marginBottom: 40 }}>
         <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16 }}>Shipping costs</h2>
+
+        <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 8 }}>Switzerland</p>
         <div style={{
           backgroundColor: 'var(--color-surface)',
           border: '1px solid var(--color-border)',
           borderRadius: 'var(--radius-lg)',
           padding: '0 20px',
+          marginBottom: 20,
         }}>
           <Row label="Standard (Swiss Post A-Post Tracked)" value="CHF 4.50" />
-          <Row label="Orders over CHF 100" value="Free" highlight />
+          <Row label="Orders over CHF 75" value="Free" highlight />
           <Row label="Zürich delivery (postal codes 80xx)" value="Free" highlight />
         </div>
-        <p style={{ fontSize: 13, color: 'var(--color-text-faint)', marginTop: 12, lineHeight: 1.7 }}>
-          Zürich free delivery applies to all postal codes starting with 80 (8000–8099). Enter your postal code at checkout to apply it automatically.
+
+        <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 8 }}>Germany & Italy</p>
+        <div style={{
+          backgroundColor: 'var(--color-surface)',
+          border: '1px solid var(--color-border)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '0 20px',
+          marginBottom: 12,
+        }}>
+          <Row label="Swiss Post Priority International (Tracked)" value="CHF 12.00" />
+        </div>
+        <p style={{ fontSize: 13, color: 'var(--color-text-faint)', lineHeight: 1.7 }}>
+          International orders are shipped tracked via Swiss Post Priority. No free shipping threshold applies for Germany and Italy.
         </p>
       </section>
 
@@ -55,8 +69,10 @@ export default function ShippingPage() {
           padding: '0 20px',
         }}>
           <Row label="Processing time" value="1–2 business days" />
-          <Row label="Swiss Post A-Post" value="1–2 business days after dispatch" />
-          <Row label="Estimated total" value="2–4 business days" />
+          <Row label="Switzerland (A-Post)" value="1–2 business days after dispatch" />
+          <Row label="Germany & Italy (Priority)" value="3–5 business days after dispatch" />
+          <Row label="Estimated total (Switzerland)" value="2–4 business days" />
+          <Row label="Estimated total (Germany & Italy)" value="4–7 business days" />
         </div>
         <p style={{ fontSize: 13, color: 'var(--color-text-faint)', marginTop: 12, lineHeight: 1.7 }}>
           Orders placed before 12:00 noon on a business day are typically dispatched the same day. Weekends and Swiss public holidays are not counted as business days.
