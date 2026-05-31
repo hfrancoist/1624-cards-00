@@ -185,6 +185,10 @@ export default function CatalogPage() {
   const [addedIds, setAddedIds] = useState<Set<string>>(new Set())
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [sheetVisible, setSheetVisible] = useState(false)
+  const [sheetDragY, setSheetDragY] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const sheetRef = useRef<HTMLDivElement>(null)
+  const dragStartY = useRef(0)
   const searchRef = useRef<HTMLInputElement>(null)
   const { addItem, items } = useCart()
   const { flyToCart } = useFlyCart()
@@ -583,15 +587,33 @@ export default function CatalogPage() {
           />
           {/* Sheet */}
           <div
+            ref={sheetRef}
+            onTouchStart={e => {
+              if (sheetRef.current && sheetRef.current.scrollTop > 0) return
+              dragStartY.current = e.touches[0].clientY
+              setIsDragging(true)
+            }}
+            onTouchMove={e => {
+              if (!isDragging) return
+              const dy = e.touches[0].clientY - dragStartY.current
+              if (dy > 0) setSheetDragY(dy)
+            }}
+            onTouchEnd={() => {
+              if (sheetDragY > 80) {
+                closeSheet()
+              }
+              setSheetDragY(0)
+              setIsDragging(false)
+            }}
             style={{
               position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 51,
               backgroundColor: 'var(--color-surface)',
               borderRadius: '20px 20px 0 0',
               padding: '0 0 32px',
               maxHeight: '80vh',
-              overflowY: 'auto',
-              transform: sheetVisible ? 'translateY(0)' : 'translateY(100%)',
-              transition: 'transform 0.32s cubic-bezier(0.4,0,0.2,1)',
+              overflowY: isDragging ? 'hidden' : 'auto',
+              transform: sheetVisible ? `translateY(${sheetDragY}px)` : 'translateY(100%)',
+              transition: isDragging ? 'none' : 'transform 0.32s cubic-bezier(0.4,0,0.2,1)',
             }}
           >
             {/* Handle + header */}
