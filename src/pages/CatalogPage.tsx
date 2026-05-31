@@ -273,11 +273,13 @@ export default function CatalogPage() {
   }
 
   function openSheet() {
+    document.body.style.overflow = 'hidden'
     setFiltersOpen(true)
     requestAnimationFrame(() => requestAnimationFrame(() => setSheetVisible(true)))
   }
 
   function closeSheet() {
+    document.body.style.overflow = ''
     setSheetVisible(false)
     setTimeout(() => setFiltersOpen(false), 320)
   }
