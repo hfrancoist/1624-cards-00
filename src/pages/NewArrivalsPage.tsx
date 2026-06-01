@@ -159,10 +159,17 @@ export default function NewArrivalsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [addedIds, setAddedIds] = useState<Set<string>>(new Set())
+  const [showScrollTop, setShowScrollTop] = useState(false)
   const { addItem, items } = useCart()
   const { flyToCart } = useFlyCart()
   useEffect(() => { setPageMeta('New Arrivals', 'Freshly added Pokémon & One Piece TCG singles. Scan-verified cards shipped from Zürich, Switzerland.') }, [])
   const isMobile = useIsMobile()
+
+  useEffect(() => {
+    function onScroll() { setShowScrollTop(window.scrollY > 400) }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     async function fetchNewArrivals() {
@@ -260,6 +267,28 @@ export default function NewArrivalsPage() {
             )
           })}
         </div>
+      )}
+      {isMobile && showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          style={{
+            position: 'fixed', bottom: 24, left: 20,
+            width: 48, height: 48,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            borderRadius: 'var(--radius-full)',
+            backgroundColor: 'var(--neutral-900)',
+            border: 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+            zIndex: 40,
+          }}
+          aria-label="Scroll to top"
+        >
+          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+            <polyline points="18 15 12 9 6 15"/>
+          </svg>
+        </button>
       )}
     </div>
   )
