@@ -211,6 +211,7 @@ export default function CatalogPage() {
   const activeGame = searchParams.get('game') as Game | null
   const activeSet = searchParams.get('set') ?? null
   const activeCategory = searchParams.get('category') ?? 'singles'
+  const activeLanguage = searchParams.get('language') ?? null
 
   useEffect(() => {
     if (activeGame === 'pokemon') {
@@ -263,6 +264,7 @@ export default function CatalogPage() {
         if (!l.card.name_en.toLowerCase().includes(q) && !l.card.set_name.toLowerCase().includes(q)) return false
       }
       if (activeSet && l.card.set_code !== activeSet) return false
+      if (activeLanguage && l.card.language !== activeLanguage) return false
       return true
     })
     .sort((a, b) => {
@@ -294,6 +296,7 @@ export default function CatalogPage() {
   function setGame(game: Game | null) {
     const params: Record<string, string> = { category: activeCategory }
     if (game) params.game = game
+    if (activeLanguage) params.language = activeLanguage
     setSearchParams(params)
     if (isMobile) { closeSheet(); window.scrollTo({ top: 0, behavior: 'smooth' }) }
   }
@@ -301,6 +304,7 @@ export default function CatalogPage() {
   function setCategory(category: string) {
     const params: Record<string, string> = { category }
     if (activeGame) params.game = activeGame
+    if (activeLanguage) params.language = activeLanguage
     setSearchParams(params)
     if (isMobile) { closeSheet(); window.scrollTo({ top: 0, behavior: 'smooth' }) }
   }
@@ -309,6 +313,16 @@ export default function CatalogPage() {
     const params: Record<string, string> = { category: activeCategory }
     if (activeGame) params.game = activeGame
     if (set_code) params.set = set_code
+    if (activeLanguage) params.language = activeLanguage
+    setSearchParams(params)
+    if (isMobile) { closeSheet(); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+  }
+
+  function setLanguage(language: string | null) {
+    const params: Record<string, string> = { category: activeCategory }
+    if (activeGame) params.game = activeGame
+    if (activeSet) params.set = activeSet
+    if (language) params.language = language
     setSearchParams(params)
     if (isMobile) { closeSheet(); window.scrollTo({ top: 0, behavior: 'smooth' }) }
   }
@@ -351,6 +365,27 @@ export default function CatalogPage() {
                   ? <img src={img} alt={label} style={{ height: 28, width: 'auto', maxWidth: '100%', objectFit: 'contain' }} />
                   : label
                 }
+              </button>
+            ))}
+          </div>
+
+          <div style={{ marginBottom: 24 }}>
+            <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Language</p>
+            {([
+              { label: 'All', value: null },
+              { label: 'English', value: 'EN' },
+              { label: 'Japanese', value: 'JP' },
+            ]).map(({ label, value }) => (
+              <button key={label} onClick={() => setLanguage(value)} style={{
+                display: 'block', width: '100%', textAlign: 'left',
+                padding: '7px 10px', borderRadius: 'var(--radius-full)',
+                fontSize: 13, border: 'none', cursor: 'pointer',
+                backgroundColor: activeLanguage === value ? '#E8E8E8' : 'transparent',
+                color: activeLanguage === value ? 'var(--brand-blue)' : 'var(--color-text-muted)',
+                fontWeight: activeLanguage === value ? 500 : 400,
+                marginBottom: 2,
+              }}>
+                {label}
               </button>
             ))}
           </div>
@@ -687,6 +722,27 @@ export default function CatalogPage() {
                     backgroundColor: activeGame === value ? '#E8E8E8' : 'transparent',
                     color: activeGame === value ? 'var(--brand-blue)' : 'var(--color-text)',
                     fontWeight: activeGame === value ? 600 : 400,
+                  }}>
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Language */}
+              <div style={{ marginBottom: 24 }}>
+                <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 10 }}>Language</p>
+                {([
+                  { label: 'All', value: null as string | null },
+                  { label: 'English', value: 'EN' },
+                  { label: 'Japanese', value: 'JP' },
+                ]).map(({ label, value }) => (
+                  <button key={label} onClick={() => setLanguage(value)} style={{
+                    display: 'block', width: '100%', textAlign: 'left',
+                    padding: '11px 14px', borderRadius: 'var(--radius-full)',
+                    fontSize: 15, border: 'none', cursor: 'pointer', marginBottom: 4,
+                    backgroundColor: activeLanguage === value ? '#E8E8E8' : 'transparent',
+                    color: activeLanguage === value ? 'var(--brand-blue)' : 'var(--color-text)',
+                    fontWeight: activeLanguage === value ? 600 : 400,
                   }}>
                     {label}
                   </button>
