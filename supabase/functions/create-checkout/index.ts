@@ -7,19 +7,27 @@ const supabase = createClient(
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
 );
 
+const ALLOWED_ORIGINS = ["https://1624cards.ch", "http://localhost:5173"];
+
+function corsHeaders(origin: string | null) {
+  const allowed = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Vary": "Origin",
+  };
+}
+
 Deno.serve(async (req) => {
+  const origin = req.headers.get("origin");
+
   if (req.method === "OPTIONS") {
-    return new Response("ok", {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "*",
-      },
-    });
+    return new Response("ok", { headers: corsHeaders(origin) });
   }
 
   const headers = {
-    "Access-Control-Allow-Origin": "*",
+    ...corsHeaders(origin),
     "Content-Type": "application/json",
   };
 
