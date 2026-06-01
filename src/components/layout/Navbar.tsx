@@ -129,7 +129,7 @@ export default function Navbar() {
                       padding: '6px 14px',
                       borderRadius: 999,
                       color: isActive ? 'var(--brand-blue)' : 'var(--color-text)',
-                      backgroundColor: isActive ? '#F5F5F5' : 'transparent',
+                      backgroundColor: isActive ? '#E8E8E8' : 'transparent',
                       transition: 'all 0.15s',
                       whiteSpace: 'nowrap',
                     }}

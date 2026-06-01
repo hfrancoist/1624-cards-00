@@ -651,7 +651,7 @@ export default function HomePage() {
 
           {/* 1 — Quote card */}
           <div style={{
-            backgroundColor: '#F5F5F5',
+            backgroundColor: '#E8E8E8',
             borderRadius: 'var(--radius-lg)',
             padding: isMobile ? '32px 24px' : '40px 36px',
             display: 'flex',
@@ -690,7 +690,7 @@ export default function HomePage() {
           {/* 3 — Facts + CTA */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div style={{
-              backgroundColor: '#F5F5F5',
+              backgroundColor: '#E8E8E8',
               borderRadius: 'var(--radius-lg)',
               padding: '28px 28px 24px',
               flex: 1,
@@ -704,7 +704,7 @@ export default function HomePage() {
             </div>
 
             <div style={{
-              backgroundColor: '#F5F5F5',
+              backgroundColor: '#E8E8E8',
               borderRadius: 'var(--radius-lg)',
               padding: '28px 28px 24px',
               flex: 1,
