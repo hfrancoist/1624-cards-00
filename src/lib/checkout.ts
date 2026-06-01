@@ -2,14 +2,14 @@ import { FunctionsHttpError } from '@supabase/supabase-js'
 import { supabase } from './supabase'
 import type { CartItem } from '../types'
 
-export async function redirectToCheckout(items: CartItem[], postalCode: string, shippingCHF: number): Promise<void> {
+export async function redirectToCheckout(items: CartItem[], postalCode: string, country: string): Promise<void> {
   const payload = {
     items: items.map((i) => ({
       listing_id: i.listing.id,
       quantity: i.quantity,
     })),
     postal_code: postalCode.trim(),
-    shipping_chf: shippingCHF,
+    country,
   }
 
   const { data, error } = await supabase.functions.invoke('super-api', { body: payload })

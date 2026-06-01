@@ -25,9 +25,10 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json();
-    // Accept only listing_id + quantity — never trust client-supplied prices
+    // Accept only listing_id + quantity — never trust client-supplied prices or shipping
     const clientItems: { listing_id: string; quantity: number }[] = body.items;
-    const shipping_chf = Number(body.shipping_chf) || 0;
+    const country: string = (typeof body.country === "string" ? body.country : "CH").toUpperCase();
+    const postalCode: string = String(body.postal_code ?? "").trim();
     const origin = req.headers.get("origin") ?? "http://localhost:5173";
 
     if (!Array.isArray(clientItems) || clientItems.length === 0) {
@@ -86,11 +87,19 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Compute shipping server-side — never trust the client value
+    const subtotal = validatedItems.reduce((sum, i) => sum + Number(i.price_chf) * i.quantity, 0);
+    const isZurich = country === "CH" && /^80\d{2}$/.test(postalCode);
+    const shipping_chf = isZurich ? 0
+      : country === "CH" ? (subtotal >= 75 ? 0 : 4.50)
+      : (country === "DE" || country === "IT") ? 12.00
+      : 12.00;
+
     if (shipping_chf > 0) {
       line_items.push({
         price_data: {
           currency: "chf",
-          product_data: { name: "Swiss Post A-Post Tracked Shipping" },
+          product_data: { name: "Swiss Post Tracked Shipping" },
           unit_amount: Math.round(shipping_chf * 100),
         },
         quantity: 1,

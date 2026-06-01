@@ -27,7 +27,7 @@ export default function CartPage() {
     setCheckoutLoading(true)
     setCheckoutError(null)
     try {
-      await redirectToCheckout(items, postalCode, shippingCHF)
+      await redirectToCheckout(items, postalCode, country)
     } catch (err) {
       setCheckoutError(err instanceof Error ? err.message : 'Something went wrong')
       setCheckoutLoading(false)
