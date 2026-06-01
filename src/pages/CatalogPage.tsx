@@ -561,21 +561,23 @@ export default function CatalogPage() {
       {isMobile && showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Scroll to top"
           style={{
             position: 'fixed', bottom: 24, left: 20,
             width: 48, height: 48,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             borderRadius: 'var(--radius-full)',
-            backgroundColor: 'var(--neutral-900)',
-            border: 'none',
-            color: '#fff',
+            backgroundColor: 'rgba(255,255,255,0.40)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            border: '1px solid rgba(255,255,255,0.30)',
+            color: 'var(--color-text)',
             cursor: 'pointer',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
             zIndex: 40,
           }}
-          aria-label="Scroll to top"
         >
-          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+          <svg aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
             <polyline points="18 15 12 9 6 15"/>
           </svg>
         </button>
@@ -585,20 +587,24 @@ export default function CatalogPage() {
       {isMobile && (
         <button
           onClick={openSheet}
+          aria-label="Open filters"
           style={{
             position: 'fixed', bottom: 24, right: 20,
             display: 'flex', alignItems: 'center', gap: 8,
             padding: '12px 20px',
             borderRadius: 'var(--radius-full)',
-            backgroundColor: 'var(--neutral-900)',
-            color: '#fff',
+            backgroundColor: 'rgba(255,255,255,0.40)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            border: '1px solid rgba(255,255,255,0.30)',
+            color: 'var(--color-text)',
             fontSize: 14, fontWeight: 600,
-            border: 'none', cursor: 'pointer',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+            cursor: 'pointer',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
             zIndex: 40,
           }}
         >
-          <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" viewBox="0 0 24 24">
+          <svg aria-hidden="true" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" viewBox="0 0 24 24">
             <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
           </svg>
           Filters
