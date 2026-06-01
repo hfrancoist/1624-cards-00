@@ -12,7 +12,7 @@ export async function redirectToCheckout(items: CartItem[], postalCode: string, 
     country,
   }
 
-  const { data, error } = await supabase.functions.invoke('super-api', { body: payload })
+  const { data, error } = await supabase.functions.invoke('create-checkout', { body: payload })
 
   if (error) {
     let message = error.message
