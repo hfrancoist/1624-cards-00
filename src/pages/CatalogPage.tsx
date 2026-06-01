@@ -566,11 +566,11 @@ export default function CatalogPage() {
             width: 48, height: 48,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             borderRadius: 'var(--radius-full)',
-            backgroundColor: 'var(--color-surface)',
-            border: '1px solid var(--color-border)',
-            color: 'var(--color-text)',
+            backgroundColor: 'var(--neutral-900)',
+            border: 'none',
+            color: '#fff',
             cursor: 'pointer',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
             zIndex: 40,
           }}
           aria-label="Scroll to top"
