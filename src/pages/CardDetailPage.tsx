@@ -737,7 +737,7 @@ export default function CardDetailPage() {
                         position: 'absolute', top: 14, left: '50%',
                         transform: `translateX(-50%) translateY(${hov ? '-5px' : '0'}) scale(${hov ? 1.07 : 1})`,
                         zIndex: 3,
-                        width: 56, aspectRatio: '2.5/3.5',
+                        width: 50, aspectRatio: '2.5/3.5',
                         borderRadius: 8,
                         overflow: 'hidden',
                         border: '2px solid rgba(255,255,255,0.95)',
@@ -771,7 +771,7 @@ export default function CardDetailPage() {
                         position: 'absolute', bottom: 14, left: '50%',
                         transform: `translateX(-50%) translateY(${hov ? '5px' : '0'}) scale(${hov ? 1.07 : 1})`,
                         zIndex: 3,
-                        width: 56, aspectRatio: '2.5/3.5',
+                        width: 50, aspectRatio: '2.5/3.5',
                         borderRadius: 8,
                         overflow: 'hidden',
                         border: '2px solid rgba(255,255,255,0.95)',
@@ -794,7 +794,7 @@ export default function CardDetailPage() {
 
                 {/* Prev arrow */}
                 <button onClick={prevSlide} disabled={modalIdx === 0} style={{
-                  position: 'absolute', left: isMobile ? 12 : 'calc(50% - 375px)', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
+                  position: 'absolute', left: isMobile ? 12 : 'calc(50% - 422px)', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
                   width: 48, height: 48, borderRadius: '50%',
                   backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)',
                   cursor: modalIdx === 0 ? 'default' : 'pointer',
@@ -811,7 +811,7 @@ export default function CardDetailPage() {
                   ref={modalImgRef}
                   style={{
                     position: 'relative',
-                    height: 'min(calc(100vh - 160px), 875px)',
+                    height: 'min(calc(100vh - 160px), 1006px)',
                     aspectRatio: '2.5/3.5',
                     borderRadius: 12,
                     overflow: 'hidden',
@@ -867,7 +867,7 @@ export default function CardDetailPage() {
 
                 {/* Next arrow */}
                 <button onClick={nextSlide} disabled={modalIdx === modalSlides.length - 1} style={{
-                  position: 'absolute', right: isMobile ? 12 : 'calc(50% - 375px)', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
+                  position: 'absolute', right: isMobile ? 12 : 'calc(50% - 422px)', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
                   width: 48, height: 48, borderRadius: '50%',
                   backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)',
                   cursor: modalIdx === modalSlides.length - 1 ? 'default' : 'pointer',
