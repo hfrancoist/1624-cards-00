@@ -187,6 +187,7 @@ export default function CatalogPage() {
   const [sheetVisible, setSheetVisible] = useState(false)
   const [sheetDragY, setSheetDragY] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
+  const [showScrollTop, setShowScrollTop] = useState(false)
   const sheetRef = useRef<HTMLDivElement>(null)
   const dragStartY = useRef(0)
   const searchRef = useRef<HTMLInputElement>(null)
@@ -200,6 +201,12 @@ export default function CatalogPage() {
     const t = setTimeout(() => searchRef.current?.focus(), 100)
     return () => clearTimeout(t)
   }, [isMobile, state?.focusSearch])
+
+  useEffect(() => {
+    function onScroll() { setShowScrollTop(window.scrollY > 400) }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const activeGame = searchParams.get('game') as Game | null
   const activeSet = searchParams.get('set') ?? null
@@ -549,6 +556,30 @@ export default function CatalogPage() {
           )}
         </div>
       </div>
+
+      {/* Scroll to top — mobile only */}
+      {isMobile && showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          style={{
+            position: 'fixed', bottom: 24, left: 20,
+            width: 48, height: 48,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            borderRadius: 'var(--radius-full)',
+            backgroundColor: 'var(--color-surface)',
+            border: '1px solid var(--color-border)',
+            color: 'var(--color-text)',
+            cursor: 'pointer',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+            zIndex: 40,
+          }}
+          aria-label="Scroll to top"
+        >
+          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+            <polyline points="18 15 12 9 6 15"/>
+          </svg>
+        </button>
+      )}
 
       {/* Floating filter button — mobile only */}
       {isMobile && (
