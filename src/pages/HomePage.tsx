@@ -187,8 +187,8 @@ export default function HomePage() {
       .from('listings')
       .select('*, card:cards(*)')
       .eq('is_active', true)
-      .order('created_at', { ascending: false })
-      .limit(30)
+      .eq('is_new_arrival', true)
+      .limit(200)
       .then(({ data }) => {
         if (!data) return
         const valid = data.filter((l: { card: unknown }) => l.card !== null) as Listing[]
