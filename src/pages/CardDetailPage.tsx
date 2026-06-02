@@ -61,6 +61,7 @@ export default function CardDetailPage() {
   const [hoveredSeries, setHoveredSeries] = useState<'prev' | 'next' | null>(null)
   const [scanFade, setScanFade] = useState(1)
   const [viewerHovered, setViewerHovered] = useState(false)
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null)
   const userInteractedAt = useRef(0)
   const carouselFadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -649,6 +650,68 @@ export default function CardDetailPage() {
           <p style={{ fontSize: 12, color: 'var(--color-text-faint)', marginTop: 12 }}>
             The scan shown is the exact physical card you will receive. All cards are scanned on a scanner glass at 400 DPI.
           </p>
+
+          {/* Accordion */}
+          <div style={{ marginTop: 24, borderTop: '1px solid var(--color-border)' }}>
+            {([
+              {
+                key: 'shipping',
+                label: 'Shipping',
+                content: (
+                  <div style={{ fontSize: 13, color: 'var(--color-text-muted)', lineHeight: 1.7 }}>
+                    <p style={{ marginBottom: 6 }}><strong>Switzerland</strong> — CHF 4.50 (Swiss Post A-Post Tracked). Free for orders over CHF 75 or within Zürich (80xx).</p>
+                    <p><strong>Germany & Italy</strong> — CHF 12.00 (Swiss Post Priority International, tracked). Dispatched within 1–2 business days.</p>
+                  </div>
+                ),
+              },
+              {
+                key: 'packaging',
+                label: 'Packaging',
+                content: (
+                  <p style={{ fontSize: 13, color: 'var(--color-text-muted)', lineHeight: 1.7 }}>
+                    All cards are shipped in a protective sleeve inside a rigid top-loader or card saver, then secured in a padded envelope. We take pride in making sure every card arrives in the same condition you ordered it.
+                  </p>
+                ),
+              },
+              {
+                key: 'returns',
+                label: 'Returns',
+                content: (
+                  <p style={{ fontSize: 13, color: 'var(--color-text-muted)', lineHeight: 1.7 }}>
+                    Returns are not accepted for change of mind. As each listing features a photo of the exact card, we encourage you to review the scan carefully before purchasing.
+                  </p>
+                ),
+              },
+            ]).map(({ key, label, content }) => {
+              const isOpen = openAccordion === key
+              return (
+                <div key={key} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <button
+                    onClick={() => setOpenAccordion(isOpen ? null : key)}
+                    style={{
+                      width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      padding: '13px 0', background: 'none', border: 'none', cursor: 'pointer',
+                      fontSize: 13, fontWeight: 500, color: 'var(--color-text)', textAlign: 'left',
+                    }}
+                  >
+                    {label}
+                    <svg
+                      width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2"
+                      strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
+                      style={{ flexShrink: 0, color: 'var(--color-text-faint)', transition: 'transform 0.2s', transform: isOpen ? 'rotate(180deg)' : 'none' }}
+                    >
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </button>
+                  {isOpen && (
+                    <div style={{ paddingBottom: 14 }}>
+                      {content}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
 
