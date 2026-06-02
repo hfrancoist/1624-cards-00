@@ -90,9 +90,6 @@ export default function ShippingPage() {
       {/* Returns */}
       <section style={{ marginBottom: 40 }}>
         <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Returns</h2>
-        <p style={{ fontSize: 14, color: 'var(--color-text-muted)', lineHeight: 1.8, marginBottom: 12 }}>
-          We want you to be happy with your purchase. If a card arrives in a condition significantly different from what was described or shown in the scan, contact us within 7 days of delivery and we'll make it right.
-        </p>
         <p style={{ fontSize: 14, color: 'var(--color-text-muted)', lineHeight: 1.8 }}>
           Returns are not accepted for change of mind. As each listing features a photo of the exact card, we encourage you to review the scan carefully before purchasing.
         </p>
