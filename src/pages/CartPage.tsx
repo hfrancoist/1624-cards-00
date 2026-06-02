@@ -239,7 +239,7 @@ export default function CartPage() {
             ]).map(({ key, label, content }) => {
               const isOpen = openAccordion === key
               return (
-                <div key={key} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <div key={key} style={{ borderBottom: key === 'returns' ? 'none' : '1px solid var(--color-border)' }}>
                   <button
                     onClick={() => setOpenAccordion(isOpen ? null : key)}
                     style={{
