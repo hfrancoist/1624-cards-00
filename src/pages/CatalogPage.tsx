@@ -298,7 +298,8 @@ export default function CatalogPage() {
     if (game) params.game = game
     if (activeLanguage) params.language = activeLanguage
     setSearchParams(params)
-    if (isMobile) { closeSheet(); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+    if (isMobile) closeSheet()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function setCategory(category: string) {
@@ -306,7 +307,8 @@ export default function CatalogPage() {
     if (activeGame) params.game = activeGame
     if (activeLanguage) params.language = activeLanguage
     setSearchParams(params)
-    if (isMobile) { closeSheet(); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+    if (isMobile) closeSheet()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function setSet(set_code: string | null) {
@@ -315,7 +317,8 @@ export default function CatalogPage() {
     if (set_code) params.set = set_code
     if (activeLanguage) params.language = activeLanguage
     setSearchParams(params)
-    if (isMobile) { closeSheet(); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+    if (isMobile) closeSheet()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function setLanguage(language: string | null) {
@@ -324,7 +327,8 @@ export default function CatalogPage() {
     if (activeSet) params.set = activeSet
     if (language) params.language = language
     setSearchParams(params)
-    if (isMobile) { closeSheet(); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+    if (isMobile) closeSheet()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
