@@ -456,7 +456,7 @@ export default function CardDetailPage() {
                   backgroundColor: '#fff', border: 'none',
                   boxShadow: '0 1px 6px rgba(0,0,0,0.15)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  cursor: 'pointer', opacity: isMobile ? 1 : viewerHovered ? 1 : 0,
+                  cursor: 'pointer', opacity: 1,
                   transition: 'opacity 0.2s ease',
                 }}
               >
@@ -474,7 +474,7 @@ export default function CardDetailPage() {
                   backgroundColor: '#fff', border: 'none',
                   boxShadow: '0 1px 6px rgba(0,0,0,0.15)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  cursor: 'pointer', opacity: isMobile ? 1 : viewerHovered ? 1 : 0,
+                  cursor: 'pointer', opacity: 1,
                   transition: 'opacity 0.2s ease',
                 }}
               >
