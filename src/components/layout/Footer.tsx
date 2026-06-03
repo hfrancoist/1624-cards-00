@@ -113,7 +113,7 @@ export default function Footer() {
           gap: 12,
         }}>
           <p style={{ fontSize: 12, color: 'var(--neutral-600)' }}>
-            © {new Date().getFullYear()} 1624 Cards · All prices include Swiss VAT (8.1%)
+            © {new Date().getFullYear()} 1624 Cards
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             {/* Social links */}

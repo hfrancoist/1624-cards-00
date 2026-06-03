@@ -625,7 +625,6 @@ export default function CardDetailPage() {
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 40, letterSpacing: '0.02em' }}>
               CHF {listing.price_chf.toFixed(2)}
             </span>
-            <span style={{ fontSize: 12, color: 'var(--color-text-faint)' }}>incl. VAT</span>
           </div>
           <div ref={offerRef}>
             <button
@@ -670,7 +669,6 @@ export default function CardDetailPage() {
             <span style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.01em', color: 'var(--color-text)' }}>
               CHF {listing.price_chf.toFixed(2)}
             </span>
-            <span style={{ fontSize: 12, color: 'var(--color-text-faint)' }}>incl. VAT</span>
           </div>
           <button
             onClick={handleAddToCart}

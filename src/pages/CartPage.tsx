@@ -178,7 +178,6 @@ export default function CartPage() {
             <span style={{ fontSize: 18, fontWeight: 500 }}>CHF {grandTotal.toFixed(2)}</span>
           </div>
 
-          <p style={{ fontSize: 11, color: 'var(--color-text-faint)', marginBottom: 16 }}>Incl. Swiss VAT (8.1%)</p>
 
           {checkoutError && (
             <p style={{ fontSize: 12, color: '#B91C1C', marginBottom: 10, textAlign: 'center' }}>
