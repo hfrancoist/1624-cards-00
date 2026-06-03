@@ -71,6 +71,7 @@ export default function PrivacyPage() {
         <ul style={{ paddingLeft: 20, fontSize: 14, lineHeight: 2, color: 'var(--color-text-muted)' }}>
           <li><strong style={{ color: 'var(--color-text)' }}>Stripe</strong> — payment processing. Your payment data is handled exclusively by Stripe and is never stored on our servers. Stripe is PCI-DSS compliant.</li>
           <li><strong style={{ color: 'var(--color-text)' }}>Supabase</strong> — secure cloud database for storing order records. Data is stored in the EU (Frankfurt region).</li>
+          <li><strong style={{ color: 'var(--color-text)' }}>Resend</strong> — transactional email service used to send your order confirmation. Your email address is transmitted to Resend solely for this purpose.</li>
         </ul>
       </Section>
 
