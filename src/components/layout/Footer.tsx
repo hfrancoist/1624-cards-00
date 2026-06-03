@@ -57,6 +57,7 @@ export default function Footer() {
               links: [
                 { label: 'Impressum', to: '/impressum' },
                 { label: 'Privacy policy', to: '/privacy' },
+                { label: 'Terms & Conditions', to: '/agb' },
               ],
             },
           ].map(section => (

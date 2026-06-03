@@ -86,7 +86,7 @@ const CONDITIONS: {
 ]
 
 export default function ConditionsPage() {
-  useEffect(() => { setPageMeta('Terms & Conditions') }, [])
+  useEffect(() => { setPageMeta('Condition Guide') }, [])
 
   const isMobile = useIsMobile()
 

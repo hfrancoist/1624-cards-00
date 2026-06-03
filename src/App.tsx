@@ -14,6 +14,7 @@ import OrderSuccessPage from './pages/OrderSuccessPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ImpressumPage from './pages/ImpressumPage'
 import PrivacyPage from './pages/PrivacyPage'
+import AgbPage from './pages/AgbPage'
 import ConditionsPage from './pages/ConditionsPage'
 import ShippingPage from './pages/ShippingPage'
 
@@ -59,6 +60,7 @@ function AppShell() {
           <Route path="/order/success" element={<OrderSuccessPage />} />
           <Route path="/impressum"    element={<ImpressumPage />} />
           <Route path="/privacy"      element={<PrivacyPage />} />
+          <Route path="/agb"          element={<AgbPage />} />
           <Route path="/conditions"   element={<ConditionsPage />} />
           <Route path="/shipping"     element={<ShippingPage />} />
           <Route path="*"             element={<NotFoundPage />} />
