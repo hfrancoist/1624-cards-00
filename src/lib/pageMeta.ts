@@ -1,5 +1,5 @@
 const DEFAULT_TITLE = '1624 Cards — Pokémon & One Piece TCG Singles'
-const DEFAULT_DESC = '1624 Cards — Swiss TCG singles store for Pokémon & One Piece. Scan-verified singles, CHF pricing, Zürich.'
+const DEFAULT_DESC = '1624 Cards — Pokémon & One Piece TCG Einzelkarten kaufen in der Schweiz. Scan-verified singles, CHF pricing, Swiss Post. Zürich.'
 
 export function setPageMeta(title?: string, description?: string) {
   document.title = title ? `${title} | 1624 Cards` : DEFAULT_TITLE

@@ -215,11 +215,11 @@ export default function CatalogPage() {
 
   useEffect(() => {
     if (activeGame === 'pokemon') {
-      setPageMeta('Pokémon TCG Singles', 'Browse Pokémon TCG singles — Base Set to Scarlet & Violet. Scan-verified, CHF pricing, ships from Zürich.')
+      setPageMeta('Pokémon TCG Singles', 'Pokémon Einzelkarten kaufen Schweiz — Base Set bis Scarlet & Violet. Scan-verified, CHF pricing, Swiss Post.')
     } else if (activeGame === 'one_piece') {
-      setPageMeta('One Piece TCG Singles', 'Browse One Piece TCG singles — OP01 onwards. Scan-verified, CHF pricing, ships from Zürich.')
+      setPageMeta('One Piece TCG Singles', 'One Piece Karten kaufen Schweiz — OP01 aufwärts. Scan-verified TCG singles, CHF pricing, Swiss Post.')
     } else {
-      setPageMeta('All Cards', 'Browse all Pokémon & One Piece TCG singles at 1624 Cards. Scan-verified, CHF pricing, Swiss Post delivery.')
+      setPageMeta('All Cards', 'Pokémon & One Piece TCG Einzelkarten kaufen Schweiz. Scan-verified singles, CHF pricing, Swiss Post delivery.')
     }
   }, [activeGame])
 

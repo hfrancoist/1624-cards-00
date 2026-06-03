@@ -114,7 +114,7 @@ export default function CardDetailPage() {
   useEffect(() => {
     if (!listing) return
     const title = `${listing.card.name_en} ${listing.condition} — ${listing.card.set_name}`
-    const desc = `${listing.card.name_en} in ${listing.condition} condition from ${listing.card.set_name}. CHF ${Number(listing.price_chf).toFixed(2)}. Scan-verified TCG single — ships from Zürich, Switzerland.`
+    const desc = `${listing.card.name_en} ${listing.condition} kaufen — ${listing.card.set_name}. CHF ${Number(listing.price_chf).toFixed(2)}. Scan-verified TCG Einzelkarte, ships from Zürich, Switzerland.`
     setPageMeta(title, desc)
     setJsonLd({
       '@context': 'https://schema.org',

@@ -162,7 +162,7 @@ export default function NewArrivalsPage() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const { addItem, items } = useCart()
   const { flyToCart } = useFlyCart()
-  useEffect(() => { setPageMeta('New Arrivals', 'Freshly added Pokémon & One Piece TCG singles. Scan-verified cards shipped from Zürich, Switzerland.') }, [])
+  useEffect(() => { setPageMeta('New Arrivals', 'Neu eingetroffene Pokémon & One Piece TCG Einzelkarten. Scan-verified, frisch verfügbar, Swiss Post aus Zürich.') }, [])
   const isMobile = useIsMobile()
 
   useEffect(() => {
