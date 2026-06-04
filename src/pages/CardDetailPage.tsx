@@ -293,7 +293,8 @@ export default function CardDetailPage() {
   }
 
   const inCart = items.find(i => i.listing.id === listing.id)
-  const canAdd = !inCart || inCart.quantity < listing.quantity
+  const soldOut = listing.quantity === 0 || !listing.is_active
+  const canAdd = !soldOut && (!inCart || inCart.quantity < listing.quantity)
 
   const modalSlides = [
     { key: 'front' as const, label: 'Front', src: listing.scan_front },
@@ -641,7 +642,7 @@ export default function CardDetailPage() {
                 transition: 'background-color 0.15s',
               }}
             >
-              {added ? '✓ Added to cart' : inCart ? 'In cart' : 'Add to cart'}
+              {soldOut ? 'Sold out' : added ? '✓ Added to cart' : inCart ? 'In cart' : 'Add to cart'}
             </button>
           </div>
 
@@ -683,7 +684,7 @@ export default function CardDetailPage() {
               transition: 'background-color 0.15s',
             }}
           >
-            {added ? '✓ Added' : inCart ? 'In cart' : 'Add to cart'}
+            {soldOut ? 'Sold out' : added ? '✓ Added' : inCart ? 'In cart' : 'Add to cart'}
           </button>
         </div>
       )}
@@ -902,7 +903,7 @@ export default function CardDetailPage() {
                       transition: 'background-color 0.15s', whiteSpace: 'nowrap', flexShrink: 0,
                     }}
                   >
-                    {inCart ? 'In cart' : 'Add to cart'}
+                    {soldOut ? 'Sold out' : inCart ? 'In cart' : 'Add to cart'}
                   </button>
                 </div>
                 <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--color-text-faint)' }}>
