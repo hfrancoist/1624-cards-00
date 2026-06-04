@@ -242,6 +242,7 @@ export default function CatalogPage() {
         .from('listings')
         .select('*, card:cards(*)')
         .eq('is_active', true)
+        .gt('quantity', 0)
         .order('created_at', { ascending: false })
         .limit(500)
 

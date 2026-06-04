@@ -178,6 +178,7 @@ export default function NewArrivalsPage() {
         .select('*, card:cards(*)')
         .eq('is_active', true)
         .eq('is_new_arrival', true)
+        .gt('quantity', 0)
         .order('new_arrival_at', { ascending: false })
         .limit(500)
       if (error) {
