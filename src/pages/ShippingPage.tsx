@@ -16,7 +16,7 @@ function Row({ label, value, highlight }: { label: string; value: string; highli
 }
 
 export default function ShippingPage() {
-  useEffect(() => { setPageMeta('Shipping Info', 'Swiss Post tracked shipping to Switzerland, Germany and Italy. Free for Swiss orders over CHF 75 or within Zürich.') }, [])
+  useEffect(() => { setPageMeta('Shipping Info', 'Swiss Post tracked shipping to Switzerland, Germany and Italy. Free for Swiss orders over CHF 75.') }, [])
 
   const isMobile = useIsMobile()
 
