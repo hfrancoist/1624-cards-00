@@ -700,7 +700,7 @@ export default function CardDetailPage() {
       {expanded && (
         <div onClick={e => e.stopPropagation()} style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: '#fff', display: 'flex', flexDirection: 'column' }}>
               {/* Top bar */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '16px 64px 12px 16px', flexShrink: 0, borderBottom: '1px solid var(--color-border)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '16px 16px 12px', flexShrink: 0, borderBottom: '1px solid var(--color-border)', position: 'relative' }}>
                 {modalSlides.map((s, i) => (
                   <button key={s.key} onClick={() => { setScanSide(s.key); setModalMagnifier(m => ({ ...m, active: false })) }} style={{
                     padding: '7px 18px', borderRadius: 'var(--radius-full)',
@@ -727,51 +727,6 @@ export default function CardDetailPage() {
                   </svg>
                 </button>
               </div>
-
-              {/* Modal series thumbnail strip — desktop */}
-              {!isMobile && seriesListings.length > 1 && (
-                <div
-                  ref={modalThumbStripRef}
-                  style={{
-                    display: 'flex', gap: 6, padding: '8px 16px',
-                    overflowX: 'auto', flexShrink: 0,
-                    justifyContent: 'center',
-                    scrollbarWidth: 'none',
-                    borderBottom: '1px solid var(--color-border)',
-                  } as React.CSSProperties}
-                >
-                  {seriesListings.map(s => (
-                    <button
-                      key={s.id}
-                      data-active={s.id === listing.id ? 'true' : 'false'}
-                      onClick={() => navigateToSeries(s.id)}
-                      style={{
-                        width: 42, aspectRatio: '2.5/3.5',
-                        borderRadius: 6, overflow: 'hidden', flexShrink: 0,
-                        padding: 0, cursor: 'pointer',
-                        border: s.id === listing.id ? '2.5px solid var(--brand-blue)' : '2.5px solid transparent',
-                        opacity: s.id === listing.id ? 1 : 0.6,
-                        boxShadow: s.id === listing.id ? '0 0 0 1px var(--brand-blue)' : '0 1px 4px rgba(0,0,0,0.15)',
-                        transition: 'opacity 0.15s, border-color 0.15s',
-                        backgroundColor: 'var(--color-bg)',
-                        outline: 'none',
-                      }}
-                    >
-                      {s.scan_front
-                        ? <img src={s.scan_front} alt={s.name_en} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                        : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: 'var(--color-text-faint)' }}>#{s.card_number}</div>
-                      }
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Series counter — mobile */}
-              {isMobile && seriesListings.length > 1 && (
-                <div style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-text-faint)', padding: '4px 0', flexShrink: 0 }}>
-                  {seriesIdx + 1} / {seriesListings.length} in set
-                </div>
-              )}
 
               {/* Image area */}
               <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: isMobile ? '8px 64px' : '16px 80px', opacity: seriesVisible ? 1 : 0, transform: seriesVisible ? 'none' : 'translateY(6px)', transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1), transform 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
@@ -869,6 +824,44 @@ export default function CardDetailPage() {
                 </button>
               </div>
 
+              {/* Thumbnail strip — series navigation */}
+              {seriesListings.length > 1 && (
+                <div style={{ borderTop: '1px solid var(--color-border)', padding: '10px 16px', flexShrink: 0, opacity: seriesVisible ? 1 : 0, transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
+                  {isMobile ? (
+                    <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-text-faint)', margin: 0 }}>
+                      {seriesIdx + 1} / {seriesListings.length}
+                    </p>
+                  ) : (
+                    <div
+                      ref={modalThumbStripRef}
+                      style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', justifyContent: 'center' }}
+                    >
+                      {seriesListings.map((s) => (
+                        <button
+                          key={s.id}
+                          onClick={() => navigateToSeries(s.id)}
+                          style={{
+                            flexShrink: 0,
+                            width: 44, height: 62,
+                            borderRadius: 6,
+                            border: s.id === listing?.id ? '2px solid var(--brand-blue)' : '1px solid var(--color-border)',
+                            backgroundColor: 'var(--color-bg)',
+                            cursor: 'pointer', overflow: 'hidden', padding: 0,
+                            opacity: s.id === listing?.id ? 1 : 0.5,
+                            transition: 'opacity 0.15s, border 0.15s',
+                          }}
+                        >
+                          {s.scan_front
+                            ? <img src={s.scan_front} alt={s.name_en} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            : <span style={{ fontSize: 8, color: 'var(--color-text-faint)' }}>{s.card_number}</span>
+                          }
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Bottom sheet — price + add to cart */}
               <div style={{ borderTop: '1px solid var(--color-border)', padding: '12px 16px 16px', flexShrink: 0, opacity: seriesVisible ? 1 : 0, transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
@@ -896,9 +889,6 @@ export default function CardDetailPage() {
                     {soldOut ? 'Sold out' : inCart ? 'In cart' : 'Add to cart'}
                   </button>
                 </div>
-                <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--color-text-faint)' }}>
-                  {modalIdx + 1} / {modalSlides.length} · ← → switch scan{seriesListings.length > 1 ? ' · ↑ ↓ browse series' : ''}{!isMobile ? ' · hover to magnify' : ''}
-                </p>
               </div>
         </div>
       )}
