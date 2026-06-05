@@ -28,7 +28,7 @@ export default function PrivacyPage() {
     <div style={{ maxWidth: 720, margin: '0 auto', padding: isMobile ? '32px 9px' : '48px 13px' }}>
       <h1 style={{ fontSize: isMobile ? 24 : 30, fontWeight: 600, marginBottom: 8 }}>Privacy Policy</h1>
       <p style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 40 }}>
-        Last updated: May 2026 · Pursuant to the Swiss Federal Act on Data Protection (nDSG)
+        Last updated: June 2026 · Pursuant to the Swiss Federal Act on Data Protection (nDSG)
       </p>
 
       <Section title="1. Controller">
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
           <li>Stripe session and payment identifiers (no card numbers are stored by us)</li>
         </ul>
         <Body>
-          We do not use cookies for tracking or analytics. We do not collect any data when you browse the site without placing an order.
+          We do not use cookies for tracking or analytics. When you browse the site, Vercel Analytics collects anonymised, aggregated data such as page views, referrer, country (derived from IP address), and device type. This data cannot be used to identify you personally and is not linked to your order information.
         </Body>
       </Section>
 
@@ -72,6 +72,7 @@ export default function PrivacyPage() {
           <li><strong style={{ color: 'var(--color-text)' }}>Stripe</strong> — payment processing. Your payment data is handled exclusively by Stripe and is never stored on our servers. Stripe is PCI-DSS compliant.</li>
           <li><strong style={{ color: 'var(--color-text)' }}>Supabase</strong> — secure cloud database for storing order records. Data is stored in the EU (Frankfurt region).</li>
           <li><strong style={{ color: 'var(--color-text)' }}>Resend</strong> — transactional email service used to send your order confirmation. Your email address is transmitted to Resend solely for this purpose.</li>
+          <li><strong style={{ color: 'var(--color-text)' }}>Vercel Analytics</strong> — cookieless, privacy-preserving analytics provided by Vercel Inc. (USA). No personal data or cookies are used. Data collected is anonymised and aggregated (page views, country, device type). Vercel is covered under the EU-US Data Privacy Framework.</li>
         </ul>
       </Section>
 
