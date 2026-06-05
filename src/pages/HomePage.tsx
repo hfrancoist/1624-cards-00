@@ -395,8 +395,8 @@ export default function HomePage() {
           </p>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(200px, 1fr))',
-            gap: isMobile ? 10 : 14,
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: isMobile ? 8 : 14,
           }}>
             {newArrivals.map(listing => (
               <HomeCardTile key={listing.id} listing={listing} />
