@@ -829,7 +829,7 @@ export default function CardDetailPage() {
                 <div style={{ borderTop: '1px solid var(--color-border)', padding: '10px 16px', flexShrink: 0, opacity: seriesVisible ? 1 : 0, transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
                   {isMobile ? (
                     <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-text-faint)', margin: 0 }}>
-                      {seriesIdx + 1} / {seriesListings.length}
+                      {seriesIdx + 1} / {seriesListings.length} · swipe left or right to view next card
                     </p>
                   ) : (
                     <div
