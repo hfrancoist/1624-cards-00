@@ -699,8 +699,10 @@ export default function CardDetailPage() {
       {/* Expanded scan modal */}
       {expanded && (
         <div onClick={e => e.stopPropagation()} style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: '#fff', display: 'flex', flexDirection: 'column' }}>
-              {/* Top bar */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '16px 16px 12px', flexShrink: 0, borderBottom: '1px solid var(--color-border)', position: 'relative' }}>
+              {/* Image + overlay wrapper */}
+              <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+              {/* Top bar — frosted glass overlay */}
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '16px 16px 12px', backgroundColor: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
                 {modalSlides.map((s, i) => (
                   <button key={s.key} onClick={() => { setScanSide(s.key); setModalMagnifier(m => ({ ...m, active: false })) }} style={{
                     padding: '7px 18px', borderRadius: 'var(--radius-full)',
@@ -729,7 +731,7 @@ export default function CardDetailPage() {
               </div>
 
               {/* Image area */}
-              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: isMobile ? '8px 64px' : '16px 80px', opacity: seriesVisible ? 1 : 0, transform: seriesVisible ? 'none' : 'translateY(6px)', transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1), transform 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
+              <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: isMobile ? '68px 64px 80px' : '72px 80px 92px', opacity: seriesVisible ? 1 : 0, transform: seriesVisible ? 'none' : 'translateY(6px)', transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1), transform 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
 
                 {/* Prev arrow */}
                 <button onClick={prevSlide} disabled={modalIdx === 0} style={{
@@ -824,9 +826,9 @@ export default function CardDetailPage() {
                 </button>
               </div>
 
-              {/* Thumbnail strip — series navigation */}
+              {/* Thumbnail strip — frosted glass overlay at bottom of image */}
               {seriesListings.length > 1 && (
-                <div style={{ borderTop: '1px solid var(--color-border)', padding: '10px 16px', flexShrink: 0, opacity: seriesVisible ? 1 : 0, transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 10, padding: '10px 16px', backgroundColor: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', opacity: seriesVisible ? 1 : 0, transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
                   <div
                     ref={modalThumbStripRef}
                     style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', justifyContent: 'center' }}
@@ -855,6 +857,8 @@ export default function CardDetailPage() {
                   </div>
                 </div>
               )}
+
+              </div>{/* end image + overlay wrapper */}
 
               {/* Bottom sheet — price + add to cart */}
               <div style={{ borderTop: '1px solid var(--color-border)', padding: '12px 16px 16px', flexShrink: 0, opacity: seriesVisible ? 1 : 0, transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
