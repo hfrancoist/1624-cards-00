@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { setPageMeta } from '../lib/pageMeta'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
 import { useIsMobile } from '../hooks/useIsMobile'
 
@@ -9,6 +9,8 @@ export default function OrderSuccessPage() {
   useEffect(() => { setPageMeta('Order Confirmed') }, [])
   const isMobile = useIsMobile()
   const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const [countdown, setCountdown] = useState(5)
 
   const sessionId = searchParams.get('session_id')
   const isValid = typeof sessionId === 'string' && sessionId.startsWith('cs_')
@@ -16,6 +18,13 @@ export default function OrderSuccessPage() {
   useEffect(() => {
     if (isValid) clearCart()
   }, [isValid, clearCart])
+
+  useEffect(() => {
+    if (!isValid) return
+    if (countdown <= 0) { navigate('/catalog'); return }
+    const t = setTimeout(() => setCountdown(c => c - 1), 1000)
+    return () => clearTimeout(t)
+  }, [isValid, countdown, navigate])
 
   if (!isValid) {
     return (
@@ -62,6 +71,9 @@ export default function OrderSuccessPage() {
       }}>
         Continue shopping
       </Link>
+      <p style={{ fontSize: 12, color: 'var(--color-text-faint)', marginTop: 14 }}>
+        Redirecting in {countdown}s…
+      </p>
     </div>
   )
 }
