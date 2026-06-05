@@ -58,13 +58,13 @@ export default function CardDetailPage() {
     id: string; scan_front: string | null; card_number: string; name_en: string
   }>>([])
   const [seriesVisible, setSeriesVisible] = useState(true)
-  const [hoveredSeries, setHoveredSeries] = useState<'prev' | 'next' | null>(null)
   const [scanFade, setScanFade] = useState(1)
   const [viewerHovered, setViewerHovered] = useState(false)
   const userInteractedAt = useRef(0)
   const carouselFadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const thumbnailStripRef = useRef<HTMLDivElement>(null)
+  const modalThumbStripRef = useRef<HTMLDivElement>(null)
   const modalImgRef = useRef<HTMLDivElement>(null)
   const isNavigatingSeries = useRef(false)
   const touchStartX = useRef(0)
@@ -267,6 +267,13 @@ export default function CardDetailPage() {
     const active = thumbnailStripRef.current.querySelector('[data-active="true"]') as HTMLElement | null
     active?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
   }, [listing?.id, isMobile, seriesListings.length])
+
+  // Scroll modal thumbnail strip to active card
+  useEffect(() => {
+    if (!modalThumbStripRef.current) return
+    const active = modalThumbStripRef.current.querySelector('[data-active="true"]') as HTMLElement | null
+    active?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+  }, [listing?.id, seriesListings.length])
 
   if (loading) {
     return (
@@ -721,75 +728,53 @@ export default function CardDetailPage() {
                 </button>
               </div>
 
+              {/* Modal series thumbnail strip — desktop */}
+              {!isMobile && seriesListings.length > 1 && (
+                <div
+                  ref={modalThumbStripRef}
+                  style={{
+                    display: 'flex', gap: 6, padding: '8px 16px',
+                    overflowX: 'auto', flexShrink: 0,
+                    justifyContent: 'center',
+                    scrollbarWidth: 'none',
+                    borderBottom: '1px solid var(--color-border)',
+                  } as React.CSSProperties}
+                >
+                  {seriesListings.map(s => (
+                    <button
+                      key={s.id}
+                      data-active={s.id === listing.id ? 'true' : 'false'}
+                      onClick={() => navigateToSeries(s.id)}
+                      style={{
+                        width: 42, aspectRatio: '2.5/3.5',
+                        borderRadius: 6, overflow: 'hidden', flexShrink: 0,
+                        padding: 0, cursor: 'pointer',
+                        border: s.id === listing.id ? '2.5px solid var(--brand-blue)' : '2.5px solid transparent',
+                        opacity: s.id === listing.id ? 1 : 0.6,
+                        boxShadow: s.id === listing.id ? '0 0 0 1px var(--brand-blue)' : '0 1px 4px rgba(0,0,0,0.15)',
+                        transition: 'opacity 0.15s, border-color 0.15s',
+                        backgroundColor: 'var(--color-bg)',
+                        outline: 'none',
+                      }}
+                    >
+                      {s.scan_front
+                        ? <img src={s.scan_front} alt={s.name_en} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                        : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: 'var(--color-text-faint)' }}>#{s.card_number}</div>
+                      }
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Series counter — mobile */}
+              {isMobile && seriesListings.length > 1 && (
+                <div style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-text-faint)', padding: '4px 0', flexShrink: 0 }}>
+                  {seriesIdx + 1} / {seriesListings.length} in set
+                </div>
+              )}
+
               {/* Image area */}
               <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: isMobile ? '8px 64px' : '16px 80px', opacity: seriesVisible ? 1 : 0, transform: seriesVisible ? 'none' : 'translateY(6px)', transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1), transform 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
-                {/* Series Up thumbnail — prev card */}
-                {seriesIdx > 0 && (() => {
-                  const prev = seriesListings[seriesIdx - 1]
-                  const hov = hoveredSeries === 'prev'
-                  return (
-                    <button
-                      onClick={() => navigateToSeries(prev.id)}
-                      onMouseEnter={() => setHoveredSeries('prev')}
-                      onMouseLeave={() => setHoveredSeries(null)}
-                      style={{
-                        position: 'absolute', top: 14, left: '50%',
-                        transform: `translateX(-50%) translateY(${hov ? '-5px' : '0'}) scale(${hov ? 1.07 : 1})`,
-                        zIndex: 3,
-                        width: 50, aspectRatio: '2.5/3.5',
-                        borderRadius: 8,
-                        overflow: 'hidden',
-                        border: '2px solid rgba(255,255,255,0.95)',
-                        boxShadow: hov
-                          ? '0 10px 30px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.14)'
-                          : '0 4px 16px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.1)',
-                        cursor: 'pointer',
-                        padding: 0, backgroundColor: 'var(--color-bg)',
-                        outline: 'none',
-                        transition: 'transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease',
-                      }}
-                    >
-                      {prev.scan_front
-                        ? <img src={prev.scan_front} alt={prev.name_en} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                        : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: 'var(--color-text-faint)', textAlign: 'center' }}>#{prev.card_number}</div>
-                      }
-                    </button>
-                  )
-                })()}
-
-                {/* Series Down thumbnail — next card */}
-                {seriesIdx >= 0 && seriesIdx < seriesListings.length - 1 && (() => {
-                  const next = seriesListings[seriesIdx + 1]
-                  const hov = hoveredSeries === 'next'
-                  return (
-                    <button
-                      onClick={() => navigateToSeries(next.id)}
-                      onMouseEnter={() => setHoveredSeries('next')}
-                      onMouseLeave={() => setHoveredSeries(null)}
-                      style={{
-                        position: 'absolute', bottom: 14, left: '50%',
-                        transform: `translateX(-50%) translateY(${hov ? '5px' : '0'}) scale(${hov ? 1.07 : 1})`,
-                        zIndex: 3,
-                        width: 50, aspectRatio: '2.5/3.5',
-                        borderRadius: 8,
-                        overflow: 'hidden',
-                        border: '2px solid rgba(255,255,255,0.95)',
-                        boxShadow: hov
-                          ? '0 10px 30px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.14)'
-                          : '0 4px 16px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.1)',
-                        cursor: 'pointer',
-                        padding: 0, backgroundColor: 'var(--color-bg)',
-                        outline: 'none',
-                        transition: 'transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease',
-                      }}
-                    >
-                      {next.scan_front
-                        ? <img src={next.scan_front} alt={next.name_en} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                        : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: 'var(--color-text-faint)', textAlign: 'center' }}>#{next.card_number}</div>
-                      }
-                    </button>
-                  )
-                })()}
 
                 {/* Prev arrow */}
                 <button onClick={prevSlide} disabled={modalIdx === 0} style={{
@@ -822,8 +807,13 @@ export default function CardDetailPage() {
                     const delta = touchStartX.current - e.changedTouches[0].clientX
                     if (Math.abs(delta) < 40) return
                     e.preventDefault()
-                    if (delta > 0 && modalIdx < modalSlides.length - 1) { setScanSide(modalSlides[modalIdx + 1].key); setModalMagnifier(m => ({ ...m, active: false })) }
-                    else if (delta < 0 && modalIdx > 0) { setScanSide(modalSlides[modalIdx - 1].key); setModalMagnifier(m => ({ ...m, active: false })) }
+                    if (isMobile && seriesListings.length > 1) {
+                      if (delta > 0 && seriesIdx < seriesListings.length - 1) navigateToSeries(seriesListings[seriesIdx + 1].id)
+                      else if (delta < 0 && seriesIdx > 0) navigateToSeries(seriesListings[seriesIdx - 1].id)
+                    } else {
+                      if (delta > 0 && modalIdx < modalSlides.length - 1) { setScanSide(modalSlides[modalIdx + 1].key); setModalMagnifier(m => ({ ...m, active: false })) }
+                      else if (delta < 0 && modalIdx > 0) { setScanSide(modalSlides[modalIdx - 1].key); setModalMagnifier(m => ({ ...m, active: false })) }
+                    }
                   }}
                   onMouseMove={e => {
                     if (!activeSrc || isMobile) return
