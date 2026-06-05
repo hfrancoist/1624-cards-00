@@ -853,11 +853,6 @@ export default function CardDetailPage() {
                       </button>
                     ))}
                   </div>
-                  {isMobile && (
-                    <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--color-text-faint)', margin: '6px 0 0' }}>
-                      {seriesIdx + 1} / {seriesListings.length} · swipe left or right to view next card
-                    </p>
-                  )}
                 </div>
               )}
 
