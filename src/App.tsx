@@ -1,3 +1,4 @@
+// v2
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { CartProvider, useCart } from './hooks/useCart'
