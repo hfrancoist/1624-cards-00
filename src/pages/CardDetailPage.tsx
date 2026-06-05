@@ -827,37 +827,36 @@ export default function CardDetailPage() {
               {/* Thumbnail strip — series navigation */}
               {seriesListings.length > 1 && (
                 <div style={{ borderTop: '1px solid var(--color-border)', padding: '10px 16px', flexShrink: 0, opacity: seriesVisible ? 1 : 0, transition: 'opacity 0.33s cubic-bezier(0.4,0,0.2,1)' }}>
-                  {isMobile ? (
-                    <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-text-faint)', margin: 0 }}>
+                  <div
+                    ref={modalThumbStripRef}
+                    style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', justifyContent: 'center' }}
+                  >
+                    {seriesListings.map((s) => (
+                      <button
+                        key={s.id}
+                        onClick={() => navigateToSeries(s.id)}
+                        style={{
+                          flexShrink: 0,
+                          width: isMobile ? 36 : 44, height: isMobile ? 50 : 62,
+                          borderRadius: 6,
+                          border: s.id === listing?.id ? '2px solid var(--brand-blue)' : '1px solid var(--color-border)',
+                          backgroundColor: 'var(--color-bg)',
+                          cursor: 'pointer', overflow: 'hidden', padding: 0,
+                          opacity: s.id === listing?.id ? 1 : 0.5,
+                          transition: 'opacity 0.15s, border 0.15s',
+                        }}
+                      >
+                        {s.scan_front
+                          ? <img src={s.scan_front} alt={s.name_en} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          : <span style={{ fontSize: 8, color: 'var(--color-text-faint)' }}>{s.card_number}</span>
+                        }
+                      </button>
+                    ))}
+                  </div>
+                  {isMobile && (
+                    <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--color-text-faint)', margin: '6px 0 0' }}>
                       {seriesIdx + 1} / {seriesListings.length} · swipe left or right to view next card
                     </p>
-                  ) : (
-                    <div
-                      ref={modalThumbStripRef}
-                      style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', justifyContent: 'center' }}
-                    >
-                      {seriesListings.map((s) => (
-                        <button
-                          key={s.id}
-                          onClick={() => navigateToSeries(s.id)}
-                          style={{
-                            flexShrink: 0,
-                            width: 44, height: 62,
-                            borderRadius: 6,
-                            border: s.id === listing?.id ? '2px solid var(--brand-blue)' : '1px solid var(--color-border)',
-                            backgroundColor: 'var(--color-bg)',
-                            cursor: 'pointer', overflow: 'hidden', padding: 0,
-                            opacity: s.id === listing?.id ? 1 : 0.5,
-                            transition: 'opacity 0.15s, border 0.15s',
-                          }}
-                        >
-                          {s.scan_front
-                            ? <img src={s.scan_front} alt={s.name_en} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                            : <span style={{ fontSize: 8, color: 'var(--color-text-faint)' }}>{s.card_number}</span>
-                          }
-                        </button>
-                      ))}
-                    </div>
                   )}
                 </div>
               )}
