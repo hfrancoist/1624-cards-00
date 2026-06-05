@@ -169,6 +169,7 @@ function wordColor(idx: number, progress: number): string {
 
 export default function HomePage() {
   const isMobile = useIsMobile()
+  const isTabletOrSmaller = useIsMobile(1280)
   useEffect(() => { setPageMeta() }, [])
   const [hoveredGame, setHoveredGame] = useState<'pokemon' | 'one_piece' | null>(null)
   const [hoveredCta, setHoveredCta] = useState(false)
@@ -395,7 +396,7 @@ export default function HomePage() {
           </p>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: isTabletOrSmaller ? 'repeat(4, 1fr)' : 'repeat(auto-fill, minmax(200px, 1fr))',
             gap: isMobile ? 8 : 14,
           }}>
             {newArrivals.map(listing => (
