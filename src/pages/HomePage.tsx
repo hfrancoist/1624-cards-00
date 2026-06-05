@@ -400,7 +400,7 @@ export default function HomePage() {
             gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(200px, 1fr))',
             gap: isMobile ? 10 : 14,
           }}>
-            {newArrivals.slice(0, isTabletOrSmaller ? 4 : 8).map(listing => (
+            {newArrivals.slice(0, isMobile ? 4 : isTabletOrSmaller ? 5 : 8).map(listing => (
               <HomeCardTile key={listing.id} listing={listing} />
             ))}
           </div>
