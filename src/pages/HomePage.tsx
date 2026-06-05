@@ -278,7 +278,7 @@ export default function HomePage() {
               {[
                 { label: 'Scan-verified', sub: 'Duplex scanned front and back. The exact card you see is the one that ships.', icon: <IconScan /> },
                 { label: 'CHF pricing', sub: 'Local CHF pricing with transparent checkout and fast domestic shipping.', icon: <IconCHF /> },
-                { label: 'Swiss Post', sub: 'A-Post tracked shipping. Free on orders over CHF\u00a0100 or within Zürich.', icon: <IconPackage /> },
+                { label: 'Swiss Post', sub: 'A-Post tracked shipping. Free on Swiss orders over CHF\u00a075.', icon: <IconPackage /> },
               ].map(item => (
                 <div key={item.label} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                   <div style={{ marginBottom: 14, filter: 'brightness(0) invert(1)' }}>{item.icon}</div>
@@ -448,7 +448,7 @@ export default function HomePage() {
           {[
             { label: 'Scan-verified', sub: 'Duplex scanned front and back. The exact card you see is the one that ships.', icon: <IconScan /> },
             { label: 'CHF pricing', sub: 'Local CHF pricing with transparent checkout and fast domestic shipping.', icon: <IconCHF /> },
-            { label: 'Swiss Post', sub: 'A-Post tracked shipping. Free on orders over CHF\u00a0100 or within Zürich.', icon: <IconPackage /> },
+            { label: 'Swiss Post', sub: 'A-Post tracked shipping. Free on Swiss orders over CHF\u00a075.', icon: <IconPackage /> },
           ].map(item => (
             <div key={item.label} style={{ backgroundColor: 'var(--color-surface)', borderRadius: 'var(--radius-lg)', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
               <div style={{ width: 44, height: 44, borderRadius: 10, backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginBottom: 8 }}>
