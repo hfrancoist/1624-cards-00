@@ -41,7 +41,6 @@ export default function ShippingPage() {
         }}>
           <Row label="Standard (Swiss Post A-Post Tracked)" value="CHF 4.50" />
           <Row label="Orders over CHF 75" value="Free" highlight />
-          <Row label="Zürich delivery (postal codes 80xx)" value="Free" highlight />
         </div>
 
         <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--color-text-faint)', marginBottom: 8 }}>Germany & Italy</p>

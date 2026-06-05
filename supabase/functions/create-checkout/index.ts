@@ -36,7 +36,6 @@ Deno.serve(async (req) => {
     // Accept only listing_id + quantity — never trust client-supplied prices or shipping
     const clientItems: { listing_id: string; quantity: number }[] = body.items;
     const country: string = (typeof body.country === "string" ? body.country : "CH").toUpperCase();
-    const postalCode: string = String(body.postal_code ?? "").trim();
     const origin = req.headers.get("origin") ?? "http://localhost:5173";
 
     if (!Array.isArray(clientItems) || clientItems.length === 0) {
@@ -97,10 +96,7 @@ Deno.serve(async (req) => {
 
     // Compute shipping server-side — never trust the client value
     const subtotal = validatedItems.reduce((sum, i) => sum + Number(i.price_chf) * i.quantity, 0);
-    const isZurich = country === "CH" && /^80\d{2}$/.test(postalCode);
-    const shipping_chf = isZurich ? 0
-      : country === "CH" ? (subtotal >= 75 ? 0 : 4.50)
-      : (country === "DE" || country === "IT") ? 12.00
+    const shipping_chf = country === "CH" ? (subtotal >= 75 ? 0 : 4.50)
       : 12.00;
 
     if (shipping_chf > 0) {
@@ -123,7 +119,7 @@ Deno.serve(async (req) => {
       cancel_url: origin + "/cart",
       metadata: {
         items: JSON.stringify(
-          validatedItems.map((i) => ({ listing_id: i.listing_id, quantity: i.quantity, price_chf: i.price_chf }))
+          validatedItems.map((i) => ({ listing_id: i.listing_id, quantity: i.quantity, price_chf: i.price_chf, card_name: i.card_name, set_name: i.set_name, condition: i.condition }))
         ),
         shipping_chf: String(shipping_chf),
       },

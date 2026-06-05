@@ -14,21 +14,17 @@ export default function CartPage() {
   useEffect(() => { refreshItems() }, [])
   const [checkoutError, setCheckoutError] = useState<string | null>(null)
   const [country, setCountry] = useState('CH')
-  const [postalCode, setPostalCode] = useState('')
   useEffect(() => { setPageMeta('Your Cart') }, [])
   const isMobile = useIsMobile()
 
-  const isZurich = country === 'CH' && /^80\d{2}$/.test(postalCode.trim())
-  const shippingCHF = isZurich ? 0
-    : country === 'CH' ? (totalCHF >= 75 ? 0 : 4.50)
-    : 12.00
+  const shippingCHF = country === 'CH' ? (totalCHF >= 75 ? 0 : 4.50) : 12.00
   const grandTotal = totalCHF + shippingCHF
 
   async function handleCheckout() {
     setCheckoutLoading(true)
     setCheckoutError(null)
     try {
-      await redirectToCheckout(items, postalCode, country)
+      await redirectToCheckout(items, country)
     } catch (err) {
       setCheckoutError(err instanceof Error ? err.message : 'Something went wrong')
       setCheckoutLoading(false)
@@ -113,7 +109,7 @@ export default function CartPage() {
             </label>
             <select
               value={country}
-              onChange={e => { setCountry(e.target.value); setPostalCode('') }}
+              onChange={e => setCountry(e.target.value)}
               style={{
                 width: '100%', padding: '8px 10px',
                 border: '1px solid var(--color-border)',
@@ -128,26 +124,6 @@ export default function CartPage() {
               <option value="DE">Germany</option>
               <option value="IT">Italy</option>
             </select>
-            <label style={{ fontSize: 12, color: 'var(--color-text-faint)', display: 'block', marginBottom: 6 }}>
-              Postal code
-            </label>
-            <input
-              value={postalCode}
-              onChange={e => setPostalCode(e.target.value)}
-              placeholder={country === 'CH' ? 'e.g. 8050' : 'e.g. 10115'}
-              maxLength={country === 'CH' ? 4 : 5}
-              style={{
-                width: '100%', padding: '8px 10px',
-                border: '1px solid var(--color-border)',
-                borderRadius: 'var(--radius-md)',
-                fontSize: 13, backgroundColor: 'var(--color-surface)',
-                color: 'var(--color-text)', outline: 'none',
-                boxSizing: 'border-box',
-              }}
-            />
-            {isZurich && (
-              <p style={{ fontSize: 11, color: '#16A34A', marginTop: 4 }}>Free delivery in Zürich</p>
-            )}
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
@@ -163,7 +139,7 @@ export default function CartPage() {
             </div>
             {shippingCHF > 0 && country === 'CH' && (
               <p style={{ fontSize: 11, color: 'var(--color-text-faint)' }}>
-                Free for Zürich (80xx) and Swiss orders over CHF 75
+                Free for Swiss orders over CHF 75
               </p>
             )}
             {(country === 'DE' || country === 'IT') && (
@@ -212,7 +188,7 @@ export default function CartPage() {
                 label: 'Shipping',
                 content: (
                   <div style={{ fontSize: 13, color: 'var(--color-text-muted)', lineHeight: 1.7 }}>
-                    <p style={{ marginBottom: 6 }}><strong>Switzerland</strong> — CHF 4.50 (Swiss Post A-Post Tracked). Free for orders over CHF 75 or within Zürich (80xx).</p>
+                    <p style={{ marginBottom: 6 }}><strong>Switzerland</strong> — CHF 4.50 (Swiss Post A-Post Tracked). Free for orders over CHF 75.</p>
                     <p><strong>Germany & Italy</strong> — CHF 12.00 (Swiss Post Priority International, tracked). Dispatched within 1–2 business days.</p>
                   </div>
                 ),
