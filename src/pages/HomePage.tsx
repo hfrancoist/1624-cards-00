@@ -295,7 +295,7 @@ export default function HomePage() {
 
       {/* Quote text section */}
       <section style={{ width: '100%', padding: isMobile ? '32px 20px' : '56px 13px' }}>
-        <div ref={quoteRef} style={{ maxWidth: 1400, margin: '0 auto' }}>
+        <div ref={quoteRef} style={{ maxWidth: isMobile ? undefined : '65%', margin: '0 auto' }}>
           <p style={{
             fontSize: 32,
             fontWeight: 400,
