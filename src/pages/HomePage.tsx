@@ -170,6 +170,7 @@ function wordColor(idx: number, progress: number): string {
 export default function HomePage() {
   const isMobile = useIsMobile()
   const isTabletOrSmaller = useIsMobile(1280)
+
   useEffect(() => { setPageMeta() }, [])
   const [hoveredGame, setHoveredGame] = useState<'pokemon' | 'one_piece' | null>(null)
   const [hoveredCta, setHoveredCta] = useState(false)
@@ -193,7 +194,7 @@ export default function HomePage() {
       .then(({ data }) => {
         if (!data) return
         const valid = data.filter((l: { card: unknown }) => l.card !== null) as Listing[]
-        setNewArrivals(shuffle(valid).slice(0, 6))
+        setNewArrivals(shuffle(valid).slice(0, 8))
       })
   }, [])
 
@@ -396,10 +397,10 @@ export default function HomePage() {
           </p>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isTabletOrSmaller ? 'repeat(4, 1fr)' : 'repeat(auto-fill, minmax(200px, 1fr))',
-            gap: isMobile ? 8 : 14,
+            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(200px, 1fr))',
+            gap: isMobile ? 10 : 14,
           }}>
-            {newArrivals.map(listing => (
+            {newArrivals.slice(0, isTabletOrSmaller ? 4 : 8).map(listing => (
               <HomeCardTile key={listing.id} listing={listing} />
             ))}
           </div>
