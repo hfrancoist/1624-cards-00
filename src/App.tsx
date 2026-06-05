@@ -1,4 +1,4 @@
-// v2
+import { Analytics } from '@vercel/analytics/react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { CartProvider, useCart } from './hooks/useCart'
@@ -81,6 +81,7 @@ export default function App() {
           <AppShell />
         </FlyCartProvider>
       </CartProvider>
+      <Analytics />
     </BrowserRouter>
   )
 }
