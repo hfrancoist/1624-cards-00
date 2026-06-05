@@ -844,7 +844,7 @@ export default function CardDetailPage() {
                           border: s.id === listing?.id ? '2px solid var(--brand-blue)' : '1px solid var(--color-border)',
                           backgroundColor: 'var(--color-bg)',
                           cursor: 'pointer', overflow: 'hidden', padding: 0,
-                          opacity: s.id === listing?.id ? 1 : 0.5,
+                          opacity: 1,
                           transition: 'opacity 0.15s, border 0.15s',
                         }}
                       >
