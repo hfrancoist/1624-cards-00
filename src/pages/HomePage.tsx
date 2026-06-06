@@ -691,7 +691,7 @@ export default function HomePage() {
       </section>
 
       {/* Full-width quote banner */}
-      <section style={{ position: 'relative', width: '100%', height: isMobile ? '75vh' : '80vh', minHeight: isMobile ? 400 : 560, overflow: 'hidden', marginBottom: isMobile ? 56 : 96 }}>
+      <section style={{ position: 'relative', width: '100%', height: isMobile ? '64vh' : '68vh', minHeight: isMobile ? 340 : 476, overflow: 'hidden', marginBottom: isMobile ? 56 : 96 }}>
         <img
           src="/images/1624_home_quote01.webp"
           alt=""
