@@ -634,14 +634,14 @@ export default function HomePage() {
             {
               num: '1',
               img: '/images/1624_home-how-scan.jpg',
-              title: 'Browse the catalog',
+              title: 'We scan every card',
               body: 'Every card is duplex-scanned front and back. The exact card you see is the one that ships — no surprises.',
             },
             {
               num: '2',
               img: '/images/1624_home-how-inspect.jpg',
-              title: 'Checkout securely',
-              body: 'CHF pricing, transparent shipping costs, and fast checkout powered by Stripe.',
+              title: 'Inspect your card',
+              body: 'Browse our catalog from any device. Zoom in, flip the card, and buy with confidence — all from your phone.',
             },
             {
               num: '3',
