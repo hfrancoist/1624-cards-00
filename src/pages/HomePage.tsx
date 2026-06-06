@@ -633,19 +633,19 @@ export default function HomePage() {
           {[
             {
               num: '1',
-              img: '/images/1624_home_header13.webp',
+              img: '/images/1624_home-how-scan.jpg',
               title: 'Browse the catalog',
               body: 'Every card is duplex-scanned front and back. The exact card you see is the one that ships — no surprises.',
             },
             {
               num: '2',
-              img: '/images/1624_home_header09.jpeg',
+              img: '/images/1624_home-how-inspect.jpg',
               title: 'Checkout securely',
               body: 'CHF pricing, transparent shipping costs, and fast checkout powered by Stripe.',
             },
             {
               num: '3',
-              img: '/images/1624_home_quote01.webp',
+              img: '/images/1624_home-how-receive.jpg',
               title: 'Receive your card',
               body: 'Shipped in a protective sleeve and top-loader via Swiss Post. Arrives exactly as shown.',
             },
