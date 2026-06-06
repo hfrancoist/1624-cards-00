@@ -278,9 +278,9 @@ export default function HomePage() {
 
               {/* Pillar items — stretched to same height, content flows from top so icons align */}
               {[
-                { label: 'Scan-verified', sub: 'Duplex scanned front and back. The exact card you see is the one that ships.', icon: <IconScan /> },
-                { label: 'CHF pricing', sub: 'Local CHF pricing with transparent checkout and fast domestic shipping.', icon: <IconCHF /> },
-                { label: 'Swiss Post', sub: 'A-Post tracked shipping. Free on Swiss orders over CHF\u00a075.', icon: <IconPackage /> },
+                { label: 'Scan-verified', sub: 'We scan every card front and back.', icon: <IconScan /> },
+                { label: 'Built to browse', sub: 'A clean, fast catalog designed to work beautifully on any device.', icon: <IconCHF /> },
+                { label: 'Swiss Post', sub: 'We pack and ship securely from Switzerland.', icon: <IconPackage /> },
               ].map(item => (
                 <div key={item.label} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                   <div style={{ marginBottom: 14, filter: 'brightness(0) invert(1)' }}>{item.icon}</div>
@@ -448,9 +448,9 @@ export default function HomePage() {
       {isMobile && <section style={{ maxWidth: 1400, margin: '0 auto', padding: '0 9px 56px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {[
-            { label: 'Scan-verified', sub: 'Duplex scanned front and back. The exact card you see is the one that ships.', icon: <IconScan /> },
-            { label: 'CHF pricing', sub: 'Local CHF pricing with transparent checkout and fast domestic shipping.', icon: <IconCHF /> },
-            { label: 'Swiss Post', sub: 'A-Post tracked shipping. Free on Swiss orders over CHF\u00a075.', icon: <IconPackage /> },
+            { label: 'Scan-verified', sub: 'We scan every card front and back.', icon: <IconScan /> },
+            { label: 'Built to browse', sub: 'A clean, fast catalog designed to work beautifully on any device.', icon: <IconCHF /> },
+            { label: 'Swiss Post', sub: 'We pack and ship securely from Switzerland.', icon: <IconPackage /> },
           ].map(item => (
             <div key={item.label} style={{ backgroundColor: 'var(--color-surface)', borderRadius: 'var(--radius-lg)', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
               <div style={{ width: 44, height: 44, borderRadius: 10, backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginBottom: 8 }}>
@@ -612,6 +612,82 @@ export default function HomePage() {
 
         </div>
 
+      </section>
+
+      {/* How it works */}
+      <section style={{ maxWidth: 1400, margin: '0 auto', padding: isMobile ? '0 9px 56px' : '0 13px 96px' }}>
+        <p style={{
+          fontSize: 12, fontWeight: 600,
+          letterSpacing: '0.12em', textTransform: 'uppercase',
+          color: 'var(--color-text-faint)',
+          marginBottom: isMobile ? 16 : 20,
+        }}>
+          How it works
+        </p>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+          gap: isMobile ? 12 : 14,
+        }}>
+          {[
+            {
+              num: '1',
+              img: '/images/1624_home_header13.webp',
+              title: 'Browse the catalog',
+              body: 'Every card is duplex-scanned front and back. The exact card you see is the one that ships — no surprises.',
+            },
+            {
+              num: '2',
+              img: '/images/1624_home_header09.jpeg',
+              title: 'Checkout securely',
+              body: 'CHF pricing, transparent shipping costs, and fast checkout powered by Stripe.',
+            },
+            {
+              num: '3',
+              img: '/images/1624_home_quote01.webp',
+              title: 'Receive your card',
+              body: 'Shipped in a protective sleeve and top-loader via Swiss Post. Arrives exactly as shown.',
+            },
+          ].map(({ num, img, title, body }) => (
+            <div key={num} style={{
+              borderRadius: 'var(--radius-2xl)',
+              overflow: 'hidden',
+              backgroundColor: 'var(--color-surface)',
+              border: '1px solid var(--color-border)',
+            }}>
+              {/* Image */}
+              <div style={{ position: 'relative', height: isMobile ? 220 : 280, overflow: 'hidden' }}>
+                <img
+                  src={img}
+                  alt={title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+                {/* Step number */}
+                <div style={{
+                  position: 'absolute', top: 14, left: 14,
+                  width: 28, height: 28, borderRadius: 8,
+                  backgroundColor: 'rgba(255,255,255,0.82)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 13, fontWeight: 600, color: 'var(--color-text)',
+                }}>
+                  {num}
+                </div>
+              </div>
+              {/* Text */}
+              <div style={{ padding: isMobile ? '18px 20px 20px' : '20px 24px 24px' }}>
+                <p style={{ fontSize: isMobile ? 17 : 18, fontWeight: 600, color: 'var(--color-text)', marginBottom: 8, letterSpacing: '-0.02em' }}>
+                  {title}
+                </p>
+                <p style={{ fontSize: 14, color: 'var(--color-text-muted)', lineHeight: 1.65 }}>
+                  {body}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Full-width quote banner */}
