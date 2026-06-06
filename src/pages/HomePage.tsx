@@ -444,8 +444,8 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Pillars — mobile only (desktop shows in hero) */}
-      {isMobile && <section style={{ maxWidth: 1400, margin: '0 auto', padding: '0 9px 56px' }}>
+      {/* Pillars — desktop only (hidden on mobile) */}
+      {!isMobile && <section style={{ maxWidth: 1400, margin: '0 auto', padding: '0 9px 56px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {[
             { label: 'Scan-verified', sub: 'We scan every card front and back.', icon: <IconScan /> },
