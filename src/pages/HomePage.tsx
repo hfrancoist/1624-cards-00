@@ -681,7 +681,7 @@ export default function HomePage() {
                 <p style={{ fontSize: isMobile ? 17 : 18, fontWeight: 600, color: 'var(--color-text)', marginBottom: 8, letterSpacing: '-0.02em' }}>
                   {title}
                 </p>
-                <p style={{ fontSize: 14, color: 'var(--color-text-muted)', lineHeight: 1.65 }}>
+                <p style={{ fontSize: 16, color: 'var(--color-text-muted)', lineHeight: 1.65 }}>
                   {body}
                 </p>
               </div>
